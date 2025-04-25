@@ -1,0 +1,39 @@
+/* Agregar estos estilos al archivo CSS */
+.btn-pago {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-pago:after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(30deg);
+    transition: all 0.3s;
+}
+
+.btn-pago:hover:after {
+    left: 100%;
+}
+
+/* Estilos para la tabla de pagos */
+.table-pagos th {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+}
+
+/* Estilos para los modales de pago */
+#pagoModal .modal-body {
+    padding: 1.5rem;
+}
+
+#pagoModal .form-control, 
+#pagoModal .form-select {
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+}

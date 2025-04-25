@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAZDENT - Panel de Administración</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../assets/img/logo-zazdent-admin.png" alt="ZAZDENT">
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="citas.html"><i class="far fa-calendar-alt"></i> Citas</a></li>
+                    <li><a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a></li>
+                    <li><a href="tratamientos.html"><i class="fas fa-teeth-open"></i> Tratamientos</a></li>
+                    <li><a href="reportes/financieros.html"><i class="fas fa-chart-line"></i> Reportes</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header class="content-header">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <a href="../php/auth/logout.php" class="logout"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </header>
+
+            <!-- Cards Resumen -->
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Citas Hoy</h3>
+                    <p id="citas-hoy">12</p>
+                </div>
+                <div class="card">
+                    <h3>Ingresos Mensuales</h3>
+                    <p id="ingresos-mes">$8,500</p>
+                </div>
+                <div class="card">
+                    <h3>Pacientes Activos</h3>
+                    <p id="pacientes-activos">24</p>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <canvas id="chart-citas"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chart-ingresos"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/admin/dashboard.js"></script>
+</body>
+</html>

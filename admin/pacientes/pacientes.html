@@ -1,0 +1,35 @@
+<main class="content">
+    <header class="content-header">
+        <h1>Pacientes Registrados</h1>
+        <input type="text" id="busqueda-pacientes" placeholder="Buscar por nombre o teléfono...">
+    </header>
+
+    <table id="tabla-pacientes">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Edad</th>
+                <th>Última Cita</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Ejemplo de fila -->
+            <tr>
+                <td>1</td>
+                <td>María González</td>
+                <td>+56987654321</td>
+                <td>38</td>
+                <td>20/07/2024</td>
+                <td>
+                    <button class="btn-ver"><i class="fas fa-eye"></i></button>
+                    <button class="btn-editar"><i class="fas fa-edit"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<script src="../assets/js/admin/pacientes.js"></script>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil | ZAZDENT</title>
+    <link rel="stylesheet" href="../assets/css/cliente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="cliente-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <img src="../assets/img/user-avatar.jpg" alt="Foto perfil" id="user-avatar">
+                <h3 id="user-name">María González</h3>
+                <p>Paciente desde: <span id="user-since">2023</span></p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="perfil.html" class="active"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                    <li><a href="mis-citas.html"><i class="far fa-calendar-alt"></i> Mis Citas</a></li>
+                    <li><a href="historial.html"><i class="fas fa-file-medical"></i> Historial</a></li>
+                    <li><a href="pagos.html"><i class="fas fa-credit-card"></i> Pagos</a></li>
+                    <li><a href="../php/auth/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <h1><i class="fas fa-user"></i> Mis Datos Personales</h1>
+            
+            <form id="form-perfil">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" id="nombre" value="María González" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="telefono" value="+56987654321" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="email" value="maria@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento</label>
+                        <input type="date" id="fecha-nac" value="1985-04-12">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Alergias</label>
+                        <textarea id="alergias">Ninguna conocida</textarea>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="btn-cambiar-pass"><i class="fas fa-lock"></i> Cambiar Contraseña</button>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Guardar Cambios</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- Modal Cambiar Contraseña -->
+    <div id="modal-password" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cambiar Contraseña</h2>
+            <form id="form-password">
+                <div class="form-group">
+                    <label>Contraseña Actual</label>
+                    <input type="password" id="current-pass" required>
+                </div>
+                <div class="form-group">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" id="new-pass" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" id="confirm-pass" required>
+                </div>
+                <button type="submit" class="btn-primary">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/cliente/perfil.js"></script>
+</body>
+</html>

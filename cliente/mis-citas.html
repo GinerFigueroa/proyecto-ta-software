@@ -1,0 +1,37 @@
+<!-- (Mismo header y sidebar que perfil.html) -->
+<main class="content">
+    <h1><i class="far fa-calendar-alt"></i> Mis Citas Agendadas</h1>
+    
+    <div class="filters">
+        <select id="filter-status">
+            <option value="all">Todas las citas</option>
+            <option value="pending">Pendientes</option>
+            <option value="completed">Completadas</option>
+        </select>
+        <button id="btn-new-appointment" class="btn-primary">
+            <i class="fas fa-plus"></i> Nueva Cita
+        </button>
+    </div>
+
+    <div class="appointments-list" id="appointments-container">
+        <!-- Citas cargadas dinámicamente -->
+        <div class="appointment-card pending">
+            <div class="appointment-info">
+                <h3>Endodoncia</h3>
+                <p><i class="far fa-calendar"></i> 20 Jul 2024 - 10:30 AM</p>
+                <p><i class="fas fa-stethoscope"></i> Dra. Carla Martínez</p>
+            </div>
+            <div class="appointment-actions">
+                <button class="btn-cancel"><i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn-edit"><i class="far fa-edit"></i> Reagendar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Cita -->
+    <div id="modal-appointment" class="modal">
+        <!-- Contenido similar al del admin pero simplificado -->
+    </div>
+</main>
+
+<script src="../assets/js/cliente/citas.js"></script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="usuario.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registro de Usuario</h2>
+        <form id="registroForm" action="registrar.php" method="POST">
+            <div class="form-group">
+                <label for="nombre_apellido">Nombre y Apellido:</label>
+                <input type="text" id="nombre_apellido" name="nombre_apellido" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="usuario_usuario">Nombre de Usuario:</label>
+                <input type="text" id="usuario_usuario" name="usuario_usuario" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="usuario_clave">Contraseña:</label>
+                <input type="password" id="usuario_clave" name="usuario_clave" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmar_clave">Confirmar Contraseña:</label>
+                <input type="password" id="confirmar_clave" name="confirmar_clave" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_rol">Rol:</label>
+                <select id="id_rol" name="id_rol" required>
+                    <option value="">Seleccione un rol</option>
+                    <option value="4">Paciente</option>
+                    <option value="2">Dentista</option>
+                    <option value="3">Recepcionista</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-registrar">Registrarse</button>
+        </form>
+        
+        <div class="tex">
+            <a href="../admin/usuario/login.php">¿Ya tienes una cuenta? Inicia sesión</a>
+        </div>
+    </div>
+    
+    <script src="usuario.js"></script>
+</body>
+</html>

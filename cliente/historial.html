@@ -1,0 +1,30 @@
+<main class="content">
+    <h1><i class="fas fa-file-medical"></i> Mi Historial Médico</h1>
+    
+    <div class="medical-timeline" id="timeline">
+        <!-- Evento de ejemplo -->
+        <div class="timeline-event">
+            <div class="event-date">15 Jul 2024</div>
+            <div class="event-content">
+                <h3>Limpieza Dental</h3>
+                <p><strong>Diagnóstico:</strong> Acumulación moderada de sarro</p>
+                <p><strong>Procedimiento:</strong> Limpieza ultrasónica + pulido</p>
+                <button class="btn-view-details">Ver detalles</button>
+            </div>
+        </div>
+        
+        <!-- Más eventos se cargan via JS -->
+    </div>
+
+    <!-- Modal Detalles -->
+    <div id="modal-details" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="detail-title">Endodoncia</h2>
+            <div class="detail-content" id="detail-content"></div>
+            <div class="detail-images" id="detail-images"></div>
+        </div>
+    </div>
+</main>
+
+<script src="../assets/js/cliente/historial.js"></script>

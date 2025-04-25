@@ -1,0 +1,46 @@
+<main class="content">
+    <h1><i class="fas fa-credit-card"></i> Mis Pagos</h1>
+    
+    <div class="balance-summary">
+        <div class="balance-card">
+            <h3>Total Pagado</h3>
+            <p class="amount">$1,850</p>
+        </div>
+        <div class="balance-card">
+            <h3>Próximo Pago</h3>
+            <p class="amount">$300 <span class="due-date">(Vence 05/08/2024)</span></p>
+        </div>
+    </div>
+
+    <table id="payments-table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tratamiento</th>
+                <th>Método</th>
+                <th>Monto</th>
+                <th>Comprobante</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>15/07/2024</td>
+                <td>Endodoncia</td>
+                <td>Tarjeta</td>
+                <td>$800</td>
+                <td><a href="#" class="btn-download"><i class="fas fa-download"></i></a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal Pago -->
+    <div id="modal-payment" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Realizar Pago</h2>
+            <!-- Integración con pasarela de pago -->
+        </div>
+    </div>
+</main>
+
+<script src="../assets/js/cliente/pagos.js"></script>

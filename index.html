@@ -1,4 +1,8 @@
 
+<?php
+require_once 'php/database/conexion.php';
+
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -8,190 +12,306 @@
     <title>ZAZDENT - Odontología Especializada</title>
     <meta name="description" content="Clínica dental especializada en ortodoncia, implantes y estética dental. Citas en línea con los mejores profesionales.">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="ixdex.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-  
+    <!-- Estilos personalizados -->
+    <style>
+        :root {
+            --primary-color: #2a6496;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar-brand img {
+            height: 50px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4b8bbe 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .price-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .team-card img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .testimonial-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .contact-section {
+            background-color: var(--secondary-color);
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="headerr">
-        <div class="containerr">
-            <a href="#" class="logoo">
-                <img src="assets/img/imagenesClinica/logoClinica.png" alt="ZAZDENT" width="150">
+
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/imagenesClinica/logoClinica.png" alt="ZAZDENT">
             </a>
-            
-            <nav class="main-navv">
-                <ul>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#nosotros">Nosotros</a></li>
-                    <li><a href="#equipo">Equipo</a></li>
-                    <li><a href="#testimonios">Testimonios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#equipo">Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonios">Testimonios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
-            </nav>
-            
-            <div class="header-actionss">
-                <a href="bienvenido/login.php" class="btn btn-outlinee">Logueate</a>
-                <button class="mobile-menu-btnn" aria-label="Abrir menú">
-                    <i class="fas fa-barss"></i>
-                </button>
+                <a href="bienvenido/login.php" class="btn btn-outline-light ms-lg-3">Iniciar Sesión</a>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero-section">
         <div class="container">
-            <div class="hero-content">
-                <h1>Sonrisas saludables, tratamientos precisos</h1>
-                <p class="hero-subtitle">Especialistas en odontología para toda la 
-                    familia con tecnología de última generación</p>
-                <div class="hero-cta">
-                    <a href="#contacto" class="btn btn-primary">Agendar Cita</a>
-                    <a href="tel:+123456789" class="btn btn-link">
-                        <i class="fas fa-phone"></i> Llámanos
-                    </a>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Sonrisas saludables, tratamientos precisos</h1>
+                    <p class="lead mb-4">Especialistas en odontología para toda la familia con tecnología de última generación</p>
+                    <div class="d-flex gap-3">
+                        <a href="#contacto" class="btn btn-light btn-lg">Agendar Cita</a>
+                        <a href="tel:+123456789" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-phone me-2"></i> Llámanos
+                        </a>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="hero-image">
-                <img src="assets/img/dentista.jpg" alt="Dentista en ZAZDENT" width="2000" height="2000" loading="lazy">
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="assets/img/dentista.jpg" alt="Dentista en ZAZDENT" class="img-fluid rounded shadow">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Servicios -->
-    <section id="servicios" class="section services">
+    <section id="servicios" class="py-5">
         <div class="container">
-            <h2 class="section-title">Nuestros Tratamientos</h2>
-            <p class="section-subtitle">Soluciones personalizadas para cada necesidad dental</p>
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Nuestros Tratamientos</h2>
+                <p class="lead text-muted">Soluciones personalizadas para cada necesidad dental</p>
+            </div>
             
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/consultaMedica.jpg" alt="Implante dental" width="60" height="60">
-                    </div>
-                    <h3>Consulta Dental</h3>
-                    <p>En nuestra consulta dental, evaluamos tu salud bucal y 
-                        te ofrecemos las mejores soluciones para mantener una
-                         sonrisa sana. Realizamos revisiones, limpiezas, diagnósticos 
-                         y tratamientos personalizados.</p>
-    
-                </div>
-                
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/braces.jpg" alt="Ortodoncia" width="200" height="200">
-                    </div>
-                    <h3>Ortodoncia Metalica</h3>
-                    <p>Brackets metálicos, estéticos y alineadores invisibles para una sonrisa perfecta.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/blanqueamiento.jpg" alt="Blanqueamiento" width="200" height="200">
-                    </div>
-                    <h3>Limpiza Dental</h3>
-                    <p>Blanqueamiento, carillas y coronas para una sonrisa radiante.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/Odontopediatría.jpg" alt="Odontopediatría" width="200" height="200">
-                    </div>
-                    <h3>Odontopediatría</h3>
-                    <p>Cuidado dental especializado para niños desde los 3 años.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/endoncia.jpg" alt="Odontopediatría" width="200" height="200">
-                    </div>
-                    <h3>Endodoncia Molar</h3>
-                    <p>Tratamiento sin dolor, rápido y seguro de las raíces del diente 
-                        en el que se procede a la extracción total del nervio dental.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/Odontopediatría.jpg" alt="periodoncia" width="200" height="200">
-                    </div>
-                    <h3>periondoncia </h3>
-                    <p>Tratamiento sin dolor, rápido y seguro de las raíces del diente 
-                        en el que se procede a la extracción total del nervio dental.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/reabilitaciondental.jpg" alt="rehabilitación" width="200" height="200">
-                    </div>
-                    <h3>Rehabilitación e implantes </h3>
-                    <p>Especialidad dedicada a devolver la función masticatoria, restaurar y/o 
-                        devolver la pérdida de dientes a través del uso de prótesis fija, removiblee e implantes.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <img src="assets/img/extracionDental.jpg" alt="implantedental" width="200" height="200">
-                    </div>
-                    <h3>Extracion Dental</h3>
-                            <p> Realizamos extracciones dentales seguras y sin dolor. Ya sea por caries severas, infecciones o necesidad de ortodoncia, garantizamos un procedimiento cómodo con recuperación rápida.</p>
-    
+            <div class="row g-4">
+                <!-- Consulta Dental -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/consultaMedica.jpg" alt="Consulta Dental" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Consulta Dental</h3>
+                            <p class="text-muted">Evaluación clínica completa con diagnóstico y plan de tratamiento.</p>
+                            <div class="price-tag" data-id="1">
+                                $<span class="price-value">300.00</span>
+                            </div>
                         </div>
-
-                       
-                       
-                    
-
+                    </div>
+                </div>
+                
+                <!-- Limpieza Dental -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/blanqueamiento.jpg" alt="Limpieza Dental" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Limpieza Dental</h3>
+                            <p class="text-muted">Remoción de sarro, placa bacteriana y pulido dental profesional.</p>
+                            <div class="price-tag" data-id="2">
+                                $<span class="price-value">500.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ortodoncia -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/braces.jpg" alt="Ortodoncia" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Ortodoncia Metálica</h3>
+                            <p class="text-muted">Tratamiento integral con brackets metálicos incluyendo controles mensuales.</p>
+                            <div class="price-tag" data-id="3">
+                                $<span class="price-value">8000.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Endodoncia -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/endoncia.jpg" alt="Endodoncia" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Endodoncia</h3>
+                            <p class="text-muted">Tratamiento de conducto en dientes con una sola raíz.</p>
+                            <div class="price-tag" data-id="4">
+                                $<span class="price-value">2500.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Implantes -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/reabilitaciondental.jpg" alt="Implantes" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Implantes Dentales</h3>
+                            <p class="text-muted">Colocación de implante dental y corona protésica sobre implante.</p>
+                            <div class="price-tag" data-id="5">
+                                $<span class="price-value">1800.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Extracción -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/extracionDental.jpg" alt="Extracción" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Extracción Dental</h3>
+                            <p class="text-muted">Exodoncia de pieza dentaria sin complicaciones quirúrgicas.</p>
+                            <div class="price-tag" data-id="6">
+                                $<span class="price-value">800.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Odontopediatría -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/Odontopediatría.jpg" alt="Odontopediatría" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Odontopediatría</h3>
+                            <p class="text-muted">Consulta preventiva y aplicación de sellantes en pacientes infantiles.</p>
+                            <div class="price-tag" data-id="7">
+                                $<span class="price-value">800.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Periodoncia -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="service-icon mb-4 mx-auto">
+                                <img src="assets/img/Odontopediatría.jpg" alt="Periodoncia" class="img-fluid">
+                            </div>
+                            <h3 class="h5">Periodoncia</h3>
+                            <p class="text-muted">Raspado y alisado radicular en un cuadrante de la boca.</p>
+                            <div class="price-tag" data-id="8">
+                                $<span class="price-value">800.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="text-center">
-                <a href="admin/servicios.html" class="btn btn-secondary">Ver todos los servicios</a>
-              
-               
-            
+            <div class="text-center mt-5">
+                <a href="admin/servicios.html" class="btn btn-outline-primary me-2">Ver todos los servicios</a>
+                <a href="sistema-citas/admin/citas.php" class="btn btn-primary">Sacar citas</a>
             </div>
-            
         </div>
     </section>
 
     <!-- Nosotros -->
-    <section id="nosotros" class="section about">
+    <section id="nosotros" class="py-5 bg-light">
         <div class="container">
-            <div class="about-image">
-                <img src="assets/img/imagenesClinica/foto.png" alt="Clínica ZAZDENT" width="2000" height="1800" loading="lazy">
-            </div>
-            
-            <div class="about-content">
-                <h2 class="section-title">Sobre ZAZDENT</h2>
-                <p>Fundada en 2023, ZAZDENT se ha consolidado como líder en odontología
-                    humano y tecnología de punta.</p>
-                
-                <ul class="about-features">
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Equipo con más de 15 años de experiencia</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Tecnología digital de última generación</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Ambiente cálido y libre de estrés</span>
-                    </li>
-                </ul>
-                
-                <div class="about-stats">
-                    <div class="stat">
-                        <span class="stat-number" data-count="5000">0</span>+
-                        <span class="stat-label">Pacientes satisfechos</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="15">0</span>+
-                        <span class="stat-label">Especialidades</span>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="assets/img/imagenesClinica/foto.png" alt="Clínica ZAZDENT" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">Sobre ZAZDENT</h2>
+                    <p class="lead">Fundada en 2023, ZAZDENT se ha consolidado como líder en odontología con tecnología de punta.</p>
+                    
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Equipo con más de 15 años de experiencia</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Tecnología digital de última generación</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Ambiente cálido y libre de estrés</li>
+                    </ul>
+                    
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h3 class="display-4 fw-bold text-primary"><span class="counter" data-count="5000">0</span>+</h3>
+                                <p class="text-muted">Pacientes satisfechos</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h3 class="display-4 fw-bold text-primary"><span class="counter" data-count="15">0</span>+</h3>
+                                <p class="text-muted">Especialidades</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -199,216 +319,333 @@
     </section>
 
     <!-- Equipo -->
-    <section id="equipo" class="section team">
+    <section id="equipo" class="py-5">
         <div class="container">
-            <h2 class="section-title">Nuestro Equipo</h2>
-            <p class="section-subtitle">Profesionales certificados y comprometidos con tu salud dental</p>
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Nuestro Equipo</h2>
+                <p class="lead text-muted">Profesionales certificados y comprometidos con tu salud dental</p>
+            </div>
             
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-photo">
-                        <img src="assets/img/team/dra-martinez.webp" alt="Dra. Carla Martínez" width="300" height="300" loading="lazy">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="assets/img/team/dra-martinez.webp" alt="Dra. Carolay" class="img-fluid mb-4">
+                            <h3 class="h4">Dra. Carolay</h3>
+                            <p class="text-primary mb-2">Ortodoncista</p>
+                            <p class="text-muted">Especializada en ortodoncia invisible y tratamientos para adultos.</p>
+                        </div>
                     </div>
-                    <h3>Dra. Carla Martín</h3>
-                    <p class="team-specialty">Ortodoncista</p>
-                    <p class="team-bio">Especializada en ortodoncia invisible y tratamientos para adultos.</p>
                 </div>
                 
-                <div class="team-card">
-                    <div class="team-photo">
-                        <img src="assets/img/team/dr-gonzalez.webp" alt="Dr. Javier González" width="300" height="300" loading="lazy">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="assets/img/team/dr-gonzalez.webp" alt="Dr. Diego Quispe" class="img-fluid mb-4">
+                            <h3 class="h4">Dr. Diego Quispe</h3>
+                            <p class="text-primary mb-2">Ortodoncia</p>
+                            <p class="text-muted">Experto en rehabilitación oral.</p>
+                        </div>
                     </div>
-                    <h3>Dr. Javier González</h3>
-                    <p class="team-specialty">Cirujano Maxilofacial</p>
-                    <p class="team-bio">Experto en implantes y rehabilitación oral.</p>
                 </div>
                 
-                <div class="team-card">
-                    <div class="team-photo">
-                        <img src="assets/img/team/dra-perez.webp" alt="Dra. Laura Pérez" width="300" height="300" loading="lazy">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="assets/img/team/dra-perez.webp" alt="Dra. Laura Pérez" class="img-fluid mb-4">
+                            <h3 class="h4">Dra. Laura Pérez</h3>
+                            <p class="text-primary mb-2">Odontopediatra</p>
+                            <p class="text-muted">Especialista en cuidado dental infantil con enfoque lúdico.</p>
+                        </div>
                     </div>
-                    <h3>Dra. Laura Pérez</h3>
-                    <p class="team-specialty">Odontopediatra</p>
-                    <p class="team-bio">Especialista en cuidado dental infantil con enfoque lúdico.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonios -->
-    <section id="testimonios" class="section testimonials">
+    <section id="testimonios" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Lo que dicen nuestros pacientes</h2>
+            </div>
             
-            <div class="testimonials-slider">
-                <div class="testimonial">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"El tratamiento de ortodoncia superó mis expectativas. El equipo es muy profesional y el ambiente es muy agradable."</p>
-                    <div class="testimonial-author">
-                        <img src="assets/img/imagenesClinica/imapaciente.png" alt="Ana S." width="2000" height="2000" loading="lazy">
-                        <div>
-                            <h4>Ana S.</h4>
-                            <p>Paciente de Ortodoncia</p>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rating text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="mb-4">"El tratamiento de ortodoncia superó mis expectativas. El equipo es muy profesional y el ambiente es muy agradable."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/imagenesClinica/imapaciente.png" alt="Ana S." width="60" height="60" class="rounded-circle me-3">
+                            <div>
+                                <h5 class="mb-0">Ana S.</h5>
+                                <small class="text-muted">Paciente de Ortodoncia</small>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="testimonial">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Mi hijo ya no le tiene miedo al dentista gracias a la Dra. Pérez. Las instalaciones son perfectas para niños."</p>
-                    <div class="testimonial-author">
-                        <img src="assets/img/imagenesClinica/pacienteCarlos.png" alt="Carlos M." width="2000" height="2000" loading="lazy">
-                        <div>
-                            <h4>Carlos M.</h4>
-                            <p>Padre de paciente</p>
+                <div class="col-md-6">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rating text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="mb-4">"Mi hijo ya no le tiene miedo al dentista gracias a la Dra. Pérez. Las instalaciones son perfectas para niños."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/imagenesClinica/pacienteCarlos.png" alt="Carlos M." width="60" height="60" class="rounded-circle me-3">
+                            <div>
+                                <h5 class="mb-0">Carlos M.</h5>
+                                <small class="text-muted">Padre de paciente</small>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+  
 
-    <!-- Contacto -->
-    <section id="contacto" class="section contact">
+    <section id="contacto" class="py-5 contact-section">
         <div class="container">
-            <div class="contact-form">
-                <h2 class="section-title">Agenda tu cita</h2>
-                <form id="form-cita" novalidate>
-                    <div class="form-group">
-                        <input type="text" id="nombre" placeholder="Nombre completo" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="telefono" placeholder="Teléfono" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Correo electrónico" required>
-                    </div>
- 
-                    <div class="form-group">
-                        <select id="tratamiento" required>
-                            <option value="">Selecciona un tratamiento</option>
-                            <option value="ortodoncia">Estetica Dental</option>
-                            <option value="implantes">Ondodoncia</option>
-                            <option value="estetica">Periodoncia</option>
-                            <option value="estetica">Reabilitación e Implantes</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="mensaje" placeholder="Mensaje adicional"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
-                </form>
-            </div>
-            
-            <div class="contact-info">
-                <h3>Información de contacto</h3>
-                
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h4>Dirección</h4>
-                        <p>Calle Dental 123, Ciudad</p>
-                    </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">Agenda tu cita</h2>
+                    <form id="form-cita" class="needs-validation" action="enviar_cita.php" method="POST" novalidate>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre completo" required>
+                            <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required>
+                            <div class="invalid-feedback">Por favor ingresa tu teléfono.</div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required>
+                            <div class="invalid-feedback">Por favor ingresa un email válido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="tratamiento" name="tratamiento" required>
+                                <option value="">Selecciona un tratamiento</option>
+                                <option value="Consulta Dental">Consulta Dental</option>
+                                <option value="Limpieza Dental">Limpieza Dental</option>
+                                <option value="Ortodoncia Metálica">Ortodoncia Metálica</option>
+                                <option value="Endodoncia">Endodoncia</option>
+                                <option value="Implantes Dentales">Implantes Dentales</option>
+                                <option value="Extracción Dental">Extracción Dental</option>
+                                <option value="Odontopediatría">Odontopediatría</option>
+                                <option value="Periodoncia">Periodoncia</option>
+                            </select>
+                            <div class="invalid-feedback">Por favor selecciona un tratamiento.</div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            <div class="invalid-feedback">Por favor selecciona una fecha.</div>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="doctor" name="doctor" required>
+                                <option value="">Selecciona un doctor</option>
+                                <option value="Dr. Juan Pérez">Dr. Juan Pérez</option>
+                                <option value="Dra. María López">Dra. María López</option>
+                                <option value="Dr. Carlos Sánchez">Dr. Carlos Sánchez</option>
+                                <option value="Dra. Ana Torres">Dra. Ana Torres</option>
+                            </select>
+                            <div class="invalid-feedback">Por favor selecciona un doctor.</div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Mensaje adicional"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Enviar solicitud</button>
+                    </form>
+                    
+                       
                 </div>
                 
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <div>
-                        <h4>Teléfono</h4>
-                        <p><a href="tel:+123456789">+1 234 567 89</a></p>
+                <div class="col-lg-6">
+                    <h3 class="h4 mb-4">Información de contacto</h3>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-3 text-primary">
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="h5">Dirección</h4>
+                            <p class="mb-0">Calle Dental 123, Ciudad</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h4>Email</h4>
-                        <p><a href="mailto:info@zazdent.com">info@zazdent.com</a></p>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-3 text-primary">
+                            <i class="fas fa-phone fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="h5">Teléfono</h4>
+                            <p class="mb-0"><a href="tel:+123456789" class="text-decoration-none">+1 234 567 89</a></p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h4>Horario</h4>
-                        <p>Lunes a Viernes: 9:00 - 19:00</p>
-                        <p>Sábados: 9:00 - 14:00</p>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-3 text-primary">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="h5">Email</h4>
+                            <p class="mb-0"><a href="mailto:info@zazdent.com" class="text-decoration-none">info@zazdent.com</a></p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="contact-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-3 text-primary">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="h5">Horario</h4>
+                            <p class="mb-0">Lunes a Viernes: 9:00 - 19:00</p>
+                            <p class="mb-0">Sábados: 9:00 - 14:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h4 class="h5 mb-3">Síguenos</h4>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-primary" aria-label="Facebook"><i class="fab fa-facebook-f fa-2x"></i></a>
+                            <a href="#" class="text-primary" aria-label="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
+                            <a href="#" class="text-primary" aria-label="WhatsApp"><i class="fab fa-whatsapp fa-2x"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="py-5">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <img src="assets/img/logo-zazdent-white.svg" alt="ZAZDENT" width="160" height="50" loading="lazy">
-                    <p class="footer-about">Clínica dental especializada en tratamientos de alta calidad con tecnología de punta y enfoque humano.</p>
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <img src="assets/img/logo-zazdent-white.svg" alt="ZAZDENT" width="160" class="mb-3">
+                    <p>Clínica dental especializada en tratamientos de alta calidad con tecnología de punta y enfoque humano.</p>
                 </div>
                 
-                <div class="footer-col">
-                    <h4>Enlaces rápidos</h4>
-                    <ul>
-                        <li><a href="#servicios">Servicios</a></li>
-                        <li><a href="#nosotros">Nosotros</a></li>
-                        <li><a href="#equipo">Equipo</a></li>
-                        <li><a href="#testimonios">Testimonios</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
+                <div class="col-lg-3">
+                    <h5 class="text-white mb-3">Enlaces rápidos</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#servicios" class="nav-link p-0 text-white-50">Servicios</a></li>
+                        <li class="nav-item mb-2"><a href="#nosotros" class="nav-link p-0 text-white-50">Nosotros</a></li>
+                        <li class="nav-item mb-2"><a href="#equipo" class="nav-link p-0 text-white-50">Equipo</a></li>
+                        <li class="nav-item mb-2"><a href="#testimonios" class="nav-link p-0 text-white-50">Testimonios</a></li>
+                        <li class="nav-item mb-2"><a href="#contacto" class="nav-link p-0 text-white-50">Contacto</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-col">
-                    <h4>Servicios</h4>
-                    <ul>
-                        <li><a href="#">Ortodoncia</a></li>
-                        <li><a href="#">Implantes</a></li>
-                        <li><a href="#">Estética Dental</a></li>
-                        <li><a href="#">Odontopediatría</a></li>
-                        <li><a href="#">Endodoncia</a></li>
+                <div class="col-lg-3">
+                    <h5 class="text-white mb-3">Servicios</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white-50">Ortodoncia</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white-50">Implantes</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white-50">Estética Dental</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white-50">Odontopediatría</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white-50">Endodoncia</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-col">
-                    <h4>Contacto</h4>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Calle Dental 123, Ciudad</li>
-                        <li><i class="fas fa-phone"></i> +1 234 567 89</li>
-                        <li><i class="fas fa-envelope"></i> info@zazdent.com</li>
+                <div class="col-lg-3">
+                    <h5 class="text-white mb-3">Contacto</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><i class="fas fa-map-marker-alt me-2"></i> Calle Dental 123, Ciudad</li>
+                        <li class="nav-item mb-2"><i class="fas fa-phone me-2"></i> +1 234 567 89</li>
+                        <li class="nav-item mb-2"><i class="fas fa-envelope me-2"></i> info@zazdent.com</li>
                     </ul>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2023 ZAZDENT. Todos los derechos reservados.</p>
-                <div class="footer-legal">
-                    <a href="politica-privacidad.html">Política de Privacidad</a>
-                    <a href="terminos-servicio.html">Términos de Servicio</a>
+            <div class="border-top mt-4 pt-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2023 ZAZDENT. Todos los derechos reservados.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="politica-privacidad.html" class="text-white-50 me-3 text-decoration-none">Política de Privacidad</a>
+                        <a href="terminos-servicio.html" class="text-white-50 text-decoration-none">Términos de Servicio</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="assets/js/main.js" defer></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para actualizar precios -->
+    <script>
+        // Datos de precios desde PHP
+        const precios = <?php echo json_encode($precios_js); ?>;
+        
+        // Función para actualizar precios
+        function actualizarPrecios() {
+            document.querySelectorAll('.price-tag').forEach(element => {
+                const id = element.getAttribute('data-id');
+                if(precios[id]) {
+                    element.querySelector('.price-value').textContent = precios[id];
+                }
+            });
+        }
+        
+        // Actualizar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarPrecios();
+            
+            // Animación de contadores
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if(count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+                
+                function updateCount() {
+                    const current = +counter.innerText;
+                    if(current < target) {
+                        counter.innerText = Math.ceil(current + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+            });
+            
+            // Validación de formulario
+            const form = document.getElementById('form-cita');
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                form.classList.add('was-validated');
+            }, false);
+        });
+    </script>
 </body>
 </html>

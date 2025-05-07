@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pagos - Clínica Dental</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/pagos.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                     
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-money-bill-wave me-2"></i> Pagos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Gestión de Pagos</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoPagoModal">
+                            <i class="fas fa-plus me-1"></i> Nuevo Pago
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards de Resumen -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Hoy</h5>
+                                <p class="card-text display-4" id="contadorHoy">0</p>
+                                <small id="montoHoy">S/ 0.00</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Este Mes</h5>
+                                <p class="card-text display-4" id="contadorMes">0</p>
+                                <small id="montoMes">S/ 0.00</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-warning mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Pendientes</h5>
+                                <p class="card-text display-4" id="contadorPendientes">0</p>
+                                <small id="montoPendientes">S/ 0.00</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-danger mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Reembolsados</h5>
+                                <p class="card-text display-4" id="contadorReembolsados">0</p>
+                                <small id="montoReembolsados">S/ 0.00</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="formFiltros">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="filtroFechaInicio" class="form-label">Desde</label>
+                                    <input type="date" class="form-control" id="filtroFechaInicio">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filtroFechaFin" class="form-label">Hasta</label>
+                                    <input type="date" class="form-control" id="filtroFechaFin">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filtroEstado" class="form-label">Estado</label>
+                                    <select class="form-select" id="filtroEstado">
+                                        <option value="">Todos</option>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="Completado">Completado</option>
+                                        <option value="Reembolsado">Reembolsado</option>
+                                        <option value="Cancelado">Cancelado</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filtroMetodo" class="form-label">Método</label>
+                                    <select class="form-select" id="filtroMetodo">
+                                        <option value="">Todos</option>
+                                        <option value="Efectivo">Efectivo</option>
+                                        <option value="Tarjeta crédito">Tarjeta crédito</option>
+                                        <option value="Tarjeta débito">Tarjeta débito</option>
+                                        <option value="Transferencia">Transferencia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 text-end">
+                                    <button type="button" class="btn btn-secondary" id="btnLimpiarFiltros">
+                                        <i class="fas fa-broom me-1"></i> Limpiar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-search me-1"></i> Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabla de Pagos -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i> Registro de Pagos
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="tablaPagos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Fecha</th>
+                                        <th>Paciente</th>
+                                        <th>Cita</th>
+                                        <th>Monto</th>
+                                        <th>Método</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Datos se cargarán dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Paginación">
+                            <ul class="pagination justify-content-center mt-3" id="paginacion">
+                                <!-- Paginación se generará dinámicamente -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    
+   <!-- Modal para Editar Pago -->
+<div class="modal fade" id="editarPagoModal" tabindex="-1" aria-labelledby="editarPagoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="editarPagoModalLabel">Editar Pago</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formEditarPago">
+                <input type="hidden" id="edit_id_pago" name="id_pago">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit_id_cita" class="form-label">Cita Relacionada</label>
+                            <select class="form-select" id="edit_id_cita" name="id_cita">
+                                <option value="">Seleccionar cita...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_monto" class="form-label">Monto (S/) *</label>
+                            <input type="number" class="form-control" id="edit_monto" name="monto" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit_metodo_pago" class="form-label">Método de Pago *</label>
+                            <select class="form-select" id="edit_metodo_pago" name="metodo_pago" required>
+                                <option value="">Seleccionar método...</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Tarjeta crédito">Tarjeta crédito</option>
+                                <option value="Tarjeta débito">Tarjeta débito</option>
+                                <option value="Transferencia">Transferencia</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_fecha_pago" class="form-label">Fecha de Pago *</label>
+                            <input type="datetime-local" class="form-control" id="edit_fecha_pago" name="fecha_pago" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit_referencia" class="form-label">Referencia/N° Operación</label>
+                            <input type="text" class="form-control" id="edit_referencia" name="referencia">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit_estado" class="form-label">Estado *</label>
+                            <select class="form-select" id="edit_estado" name="estado" required>
+                                <option value="Completado">Completado</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Reembolsado">Reembolsado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="edit_notas" class="form-label">Notas</label>
+                            <textarea class="form-control" id="edit_notas" name="notas" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Nuevo Pago (corregido) -->
+<div class="modal fade" id="nuevoPagoModal" tabindex="-1" aria-labelledby="nuevoPagoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="nuevoPagoModalLabel">Nuevo Pago</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formNuevoPago">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_cita" class="form-label">Cita Relacionada</label>
+                            <select class="form-select" id="id_cita" name="id_cita">
+                                <option value="">Seleccionar cita...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="monto" class="form-label">Monto (S/) *</label>
+                            <input type="number" class="form-control" id="monto" name="monto" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="metodo_pago" class="form-label">Método de Pago *</label>
+                            <select class="form-select" id="metodo_pago" name="metodo_pago" required>
+                                <option value="">Seleccionar método...</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Tarjeta crédito">Tarjeta crédito</option>
+                                <option value="Tarjeta débito">Tarjeta débito</option>
+                                <option value="Transferencia">Transferencia</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fecha_pago" class="form-label">Fecha de Pago *</label>
+                            <input type="datetime-local" class="form-control" id="fecha_pago" name="fecha_pago" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="referencia" class="form-label">Referencia/N° Operación</label>
+                            <input type="text" class="form-control" id="referencia" name="referencia">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="estado" class="form-label">Estado *</label>
+                            <select class="form-select" id="estado" name="estado" required>
+                                <option value="Completado" selected>Completado</option>
+                                <option value="Pendiente">Pendiente</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="notas" class="form-label">Notas</label>
+                            <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Registrar Pago</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal para Detalles de Pago -->
+    <div class="modal fade" id="detallePagoModal" tabindex="-1" aria-labelledby="detallePagoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="detallePagoModalLabel">Detalles de Pago</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="detallePagoContent">
+                    <!-- Contenido dinámico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="pagos.js"></script>
+</body>
+</html>

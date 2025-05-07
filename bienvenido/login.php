@@ -71,38 +71,139 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Clínica Dental</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 120px;
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            width: 100%;
+            padding: 10px;
+            font-weight: 600;
+        }
+        .form-control:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        }
+        .divider {
+            position: relative;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        .divider-text {
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;
+            background-color: white;
+            z-index: 2;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="login-container">
+                    <div class="logo">
+                        <i class="fas fa-tooth fa-3x mb-3" style="color: #2575fc;"></i>
+                        <h3 class="mb-4">Clínica Dental</h3>
+                    </div>
 
-    <div class="login-container">
-    <?php if (isset($_GET['registro']) && $_GET['registro'] === 'exitoso'): ?>
-    <div class="alert alert-success">
-        ¡Registro exitoso! Por favor inicia sesión.
+                    <?php if (isset($_GET['registro']) && $_GET['registro'] === 'exitoso'): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ¡Registro exitoso! Por favor inicia sesión.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo htmlspecialchars($error); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
+                    <form method="POST" action="login.php">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario o Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu usuario o email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Recordarme</label>
+                            <a href="#" class="float-end text-decoration-none">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-login mb-3">
+                            <i class="fas fa-sign-in-alt me-2"></i> Iniciar sesión
+                        </button>
+                        
+                        <div class="text-center mt-3">
+                            <p>¿No tienes una cuenta? 
+                                <a href="../admin/usuario/usuario.html" class="text-decoration-none fw-bold">Regístrate</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-<?php endif; ?>
-        <h2>Login</h2>
 
-        <?php if (isset($error)): ?>
-            <p class="error"><?php echo htmlspecialchars($error); ?></p>
-        <?php endif; ?>
-
-        <form method="POST" action="login.php">
-            <label>Usuario o Email:</label><br>
-            <input type="text" name="username" required><br><br>
-
-            <label>Contraseña:</label><br>
-            <input type="password" name="password" required><br><br>
-
-            <input type="submit" value="Iniciar sesión">
-            <div class="tex">
-    <a href="../admin/usuario/usuario.html" style="color: blue; text-decoration: none;">
-    
-        ¿No tienes una cuenta? Regístrate
-    </a>
-</div>
-            
-        
-        </form>
-    </div>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="bienvenido.js"></script>
+</body>
+</html>
 
     
     

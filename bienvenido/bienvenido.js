@@ -1,46 +1,39 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Validación del formulario de login
-    const loginForm = document.querySelector('form');
-    if (loginForm) {
-        const usernameInput = document.querySelector('input[name="username"]');
-        const passwordInput = document.querySelector('input[name="password"]');
-
-        loginForm.addEventListener('submit', function (event) {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
-            let errors = [];
-
-            if (username === '') {
-                errors.push('El usuario/email es obligatorio');
-            }
-
-            if (password === '') {
-                errors.push('La contraseña es obligatoria');
-            } else if (password.length < 8) {
-                errors.push('La contraseña debe tener al menos 8 caracteres');
-            } else if (!/[A-Z]/.test(password)) {
-                errors.push('La contraseña debe contener al menos una mayúscula');
-            } else if (!/[0-9]/.test(password)) {
-                errors.push('La contraseña debe contener al menos un número');
-            } else if (!/[^A-Za-z0-9]/.test(password)) {
-                errors.push('La contraseña debe contener al menos un carácter especial');
-            }
-
-            if (errors.length > 0) {
-                event.preventDefault();
-                alert(errors.join('\n'));
-            }
-        });
-    }
-
-    // Efectos para las tarjetas del dashboard
+document.addEventListener('DOMContentLoaded', function() {
+    // Efecto hover para las tarjetas
     const cards = document.querySelectorAll('.card');
+    
     cards.forEach(card => {
-        card.addEventListener('click', function() {
-            const link = this.querySelector('a');
-            if (link) {
-                window.location.href = link.href;
-            }
+        card.addEventListener('mouseenter', function() {
+            this.style.cursor = 'pointer';
         });
     });
+    
+    // Mostrar mensajes temporales
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('success')) {
+        const message = urlParams.get('message') || 'Operación exitosa';
+        showToast(message);
+    }
 });
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'position-fixed bottom-0 end-0 p-3';
+    toast.style.zIndex = '11';
+    
+    toast.innerHTML = `
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notificación</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">${message}</div>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 5000);
+}

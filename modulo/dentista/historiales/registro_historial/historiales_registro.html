@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nuevo Historial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="historiales_registro.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="fas fa-file-medical me-2"></i>Nuevo Historial Médico</h3>
+            </div>
+            <div class="card-body">
+                <form id="formHistorial" onsubmit="guardarHistorial(event)">
+                    <!-- Selección de Paciente -->
+                    <div class="mb-3">
+                        <label class="form-label">Paciente <span class="text-danger">*</span></label>
+                        <select id="id_paciente" class="form-select" required>
+                            <option value="">Cargando pacientes...</option>
+                        </select>
+                    </div>
+
+                    <!-- Fecha y Tratamiento -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha y Hora <span class="text-danger">*</span></label>
+                            <input type="datetime-local" id="fecha_procedimiento" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tratamiento</label>
+                            <select id="id_tratamiento" class="form-select">
+                                <option value="">Seleccionar tratamiento...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Campos principales -->
+                    <div class="mb-3">
+                        <label class="form-label">Diagnóstico <span class="text-danger">*</span></label>
+                        <textarea id="diagnostico" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Procedimiento Realizado</label>
+                        <textarea id="procedimiento" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <!-- Observaciones y Receta -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Observaciones</label>
+                            <textarea id="observaciones" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Receta Médica</label>
+                            <textarea id="receta" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Próxima Visita -->
+                    <div class="mb-3">
+                        <label class="form-label">Próxima Visita</label>
+                        <input type="date" id="proxima_visita" class="form-control">
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Guardar Historial
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="historiales_registro.js"></script>
+</body>
+</html>

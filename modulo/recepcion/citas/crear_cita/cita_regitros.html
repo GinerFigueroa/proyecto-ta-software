@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Nueva Cita</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-calendar-plus me-2"></i>Registrar Nueva Cita</h4>
+            </div>
+            <div class="card-body">
+                <form id="form-registro-cita" class="needs-validation" novalidate>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_paciente" class="form-label">Paciente *</label>
+                            <select class="form-select" id="id_paciente" name="id_paciente" required>
+                                <option value="">Seleccionar paciente...</option>
+                            </select>
+                            <div class="invalid-feedback">Seleccione un paciente</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_tratamiento" class="form-label">Tratamiento *</label>
+                            <select class="form-select" id="id_tratamiento" name="id_tratamiento" required>
+                                <option value="">Seleccionar tratamiento...</option>
+                            </select>
+                            <div class="invalid-feedback">Seleccione un tratamiento</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_dentista" class="form-label">Dentista</label>
+                            <select class="form-select" id="id_dentista" name="id_dentista">
+                                <option value="">Seleccionar dentista...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fecha_hora" class="form-label">Fecha y Hora *</label>
+                            <input type="datetime-local" class="form-control" id="fecha_hora" name="fecha_hora" required>
+                            <div class="invalid-feedback">Ingrese fecha y hora válida</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="duracion" class="form-label">Duración (minutos) *</label>
+                            <input type="number" class="form-control" id="duracion" name="duracion" value="30" min="15" step="15" required>
+                            <div class="invalid-feedback">Duración mínima 15 minutos</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="estado" class="form-label">Estado *</label>
+                            <select class="form-select" id="estado" name="estado" required>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Confirmada">Confirmada</option>
+                                <option value="Completada">Completada</option>
+                                <option value="Cancelada">Cancelada</option>
+                                <option value="No asistió">No asistió</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notas" class="form-label">Notas</label>
+                        <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
+                    </div>
+                 <!-- Modificar la sección del recordatorio -->
+<div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="recordatorio_enviado" name="recordatorio_enviado" value="1">
+    <label class="form-check-label" for="recordatorio_enviado">Recordatorio Enviado</label>
+</div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-2"></i>Registrar Cita
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="cita_registro.js"></script>
+</body>
+</html>

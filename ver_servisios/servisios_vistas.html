@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAZDENT - Odontología Especializada</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        .price-tag {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .service-icon img {
+            border-radius: 8px;
+            object-fit: cover;
+            height: 180px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sección de Servicios -->
+<section id="servicios" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Nuestros Tratamientos</h2>
+            <p class="lead text-muted">Soluciones personalizadas para cada necesidad dental</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Consulta Dental -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/consultaMedica.jpg" alt="Consulta Dental" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Consulta Dental</h3>
+                        <p class="text-muted small mb-4">Evaluación clínica completa con diagnóstico y plan de tratamiento</p>
+                        <div class="price-tag">
+                            $<span class="price-value">300.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Limpieza Dental -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/blanqueamiento.jpg" alt="Limpieza Dental" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Limpieza Dental</h3>
+                        <p class="text-muted small mb-4">Remoción de sarro, placa bacteriana y pulido dental profesional</p>
+                        <div class="price-tag">
+                            $<span class="price-value">500.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ortodoncia Metálica -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/braces.jpg" alt="Ortodoncia" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Ortodoncia Metálica</h3>
+                        <p class="text-muted small mb-4">Tratamiento integral con brackets metálicos incluyendo controles mensuales</p>
+                        <div class="price-tag">
+                            $<span class="price-value">8000.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endodoncia -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/endoncia.jpg" alt="Endodoncia" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Endodoncia</h3>
+                        <p class="text-muted small mb-4">Tratamiento de conducto en dientes con una sola raíz</p>
+                        <div class="price-tag">
+                            $<span class="price-value">2500.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implantes Dentales -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/reabilitaciondental.jpg" alt="Implantes" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Implantes Dentales</h3>
+                        <p class="text-muted small mb-4">Colocación de implante dental y corona protésica sobre implante</p>
+                        <div class="price-tag">
+                            $<span class="price-value">1800.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extracción Dental -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/extracionDental.jpg" alt="Extracción" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Extracción Dental</h3>
+                        <p class="text-muted small mb-4">Exodoncia de pieza dentaria sin complicaciones quirúrgicas</p>
+                        <div class="price-tag">
+                            $<span class="price-value">800.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Odontopediatría -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/Odontopediatría.jpg" alt="Odontopediatría" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Odontopediatría</h3>
+                        <p class="text-muted small mb-4">Consulta preventiva y aplicación de sellantes en pacientes infantiles</p>
+                        <div class="price-tag">
+                            $<span class="price-value">800.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Periodoncia -->
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="service-icon mb-4">
+                            <img src="../assets/img/blanqueamientoDental.jpg" alt="Periodoncia" class="img-fluid">
+                        </div>
+                        <h3 class="h5 mb-3">Periodoncia</h3>
+                        <p class="text-muted small mb-4">Raspado y alisado radicular en un cuadrante de la boca</p>
+                        <div class="price-tag">
+                            $<span class="price-value">800.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap JS + Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

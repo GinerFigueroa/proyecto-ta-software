@@ -1,54 +1,68 @@
-<?php
-require_once '../../../php/database/conexion.php';
-session_start();
 
+
+<?php
+require_once __DIR__ . '/../../../../php/database/conexion.php';
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    die(json_encode(['success' => false, 'message' => 'Método no permitido']));
-}
-
-$input = json_decode(file_get_contents('php://input'), true);
-
-// Validación básica
-$required = ['nombre', 'duracion', 'costo'];
-foreach ($required as $field) {
-    if (empty($input[$field])) {
-        die(json_encode(['success' => false, 'message' => "Campo $field requerido"]));
-    }
-}
-
 try {
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    // Validar campos requeridos
+    $required = ['nombre', 'duracion_estimada', 'costo'];
+    foreach ($required as $field) {
+        if (empty($data[$field])) {
+            throw new Exception("El campo $field es obligatorio");
+        }
+    }
+
     $db = new Database();
     $conn = $db->getConnection();
-    
-    // Obtener especialidad del dentista
-    $stmt = $conn->prepare("
-        SELECT d.id_especialidad 
-        FROM dentistas d
-        WHERE d.id_usuario = ?
-    ");
-    $stmt->execute([$_SESSION['id_usuario']]);
-    $dentista = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    $sql = "INSERT INTO tratamientos (
-        nombre, id_especialidad, descripcion, 
-        duracion_estimada, costo, requisitos
-    ) VALUES (?, ?, ?, ?, ?, ?)";
-    
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([
-        $input['nombre'],
-        $dentista['id_especialidad'],
-        $input['descripcion'] ?? null,
-        $input['duracion'],
-        $input['costo'],
-        $input['requisitos'] ?? null
-    ]);
-    
-    echo json_encode(['success' => true, 'message' => 'Tratamiento registrado']);
 
+    $query = "INSERT INTO tratamientos (
+                nombre, 
+                id_especialidad, 
+                descripcion, 
+                duracion_estimada, 
+                costo, 
+                requisitos, 
+                activo
+              ) VALUES (
+                :nombre, 
+                :id_especialidad, 
+                :descripcion, 
+                :duracion_estimada, 
+                :costo, 
+                :requisitos, 
+                1
+              )";
+
+    $stmt = $conn->prepare($query);
+    
+    $params = [
+        ':nombre' => $data['nombre'],
+        ':id_especialidad' => $data['id_especialidad'] ?? null,
+        ':descripcion' => $data['descripcion'] ?? null,
+        ':duracion_estimada' => $data['duracion_estimada'],
+        ':costo' => $data['costo'],
+        ':requisitos' => $data['requisitos'] ?? null
+    ];
+
+    if ($stmt->execute($params)) {
+        echo json_encode(['success' => true]);
+    } else {
+        throw new Exception('Error al registrar el tratamiento');
+    }
+    
 } catch (PDOException $e) {
-    error_log("Error: " . $e->getMessage());
-    echo json_encode(['success' => false, 'message' => 'Error en la base de datos']);
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Error de base de datos: ' . $e->getMessage()
+    ]);
+} catch (Exception $e) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
 }

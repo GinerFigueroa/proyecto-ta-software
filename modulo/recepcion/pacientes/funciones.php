@@ -43,6 +43,18 @@ try {
     ]);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 function registrarLog($pdo, $id_usuario, $accion, $tabla_afectada, $id_registro, $datos_anteriores = null, $datos_nuevos = null) {
     $stmt = $pdo->prepare("INSERT INTO logs 
                           (id_usuario, accion, tabla_afectada, id_registro_afectado, 

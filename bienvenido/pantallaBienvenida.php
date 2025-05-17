@@ -51,8 +51,9 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-users-cog fa-3x mb-3 text-primary"></i>
                                 <h5 class="card-title">Gestión de Usuarios</h5>
                                 <p class="card-text">Administra todos los usuarios del sistema</p>
-                                <a href="modules/admin/usuarios.php" class="btn btn-primary stretched-link">
-                                    Acceder <i class="fas fa-arrow-right ms-1"></i>
+                                <a href="../modulo/admin/gestion_usuario.php/usuario.html" class="btn btn-primary stretched-link">
+                     
+                                Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
                         </div>
@@ -63,8 +64,10 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-key fa-3x mb-3 text-warning"></i>
                                 <h5 class="card-title">Restablecer Contraseñas</h5>
                                 <p class="card-text">Ayuda a usuarios con acceso</p>
-                                <a href="modules/admin/restablecer.php" class="btn btn-primary stretched-link">
-                                    Acceder <i class="fas fa-arrow-right ms-1"></i>
+                                <a href="../modulo/admin/restablecer_contraseñas/restablecer.php" class="btn btn-primary stretched-link">
+                                
+                                
+                                Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
                         </div>
@@ -75,7 +78,8 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-cogs fa-3x mb-3 text-info"></i>
                                 <h5 class="card-title">Configuración</h5>
                                 <p class="card-text">Ajustes del sistema</p>
-                                <a href="modules/admin/configuracion.php" class="btn btn-primary stretched-link">
+                                <a href="../modulo/admin/configuracion/configuracion.php" class="btn btn-primary stretched-link">
+                                   
                                     Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -87,7 +91,8 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-chart-bar fa-3x mb-3 text-success"></i>
                                 <h5 class="card-title">Reportes</h5>
                                 <p class="card-text">Genera reportes del sistema</p>
-                                <a href="modules/admin/reportes.php" class="btn btn-primary stretched-link">
+                                <a href="../modulo/admin/reportes/reportes.php" class="btn btn-primary stretched-link">
+                                  
                                     Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -102,7 +107,7 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-calendar-alt fa-3x mb-3 text-primary"></i>
                                 <h5 class="card-title">Mi Agenda</h5>
                                 <p class="card-text">Consulta tu agenda de citas</p>
-                                <a href="modules/dentista/agenda.php" class="btn btn-primary stretched-link">
+                                <a href="../modulo/recepcion/agenda/citas.html" class="btn btn-primary stretched-link">
                                     Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -114,8 +119,9 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-user-injured fa-3x mb-3 text-info"></i>
                                 <h5 class="card-title">Mis Pacientes</h5>
                                 <p class="card-text">Gestiona tus pacientes</p>
-                                <a href="../modulo/dentista/pacientes/pacientes.html" class="btn btn-primary stretched-link">
-                                    Acceder <i class="fas fa-arrow-right ms-1"></i>
+                                <a href=" ../modulo/dentista/pacientes/pacientes.html" class="btn btn-primary stretched-link">
+                               
+                                Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
                         </div>
@@ -183,8 +189,9 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-calendar-check fa-3x mb-3 text-warning"></i>
                                 <h5 class="card-title">Ver Agenda</h5>
                                 <p class="card-text">Consulta la agenda completa</p>
-                                <a href="../modulo/recepcion/agenda/agenda.html" class="btn btn-primary stretched-link">
-                                    Acceder <i class="fas fa-arrow-right ms-1"></i>
+                                <a href="../modulo/recepcion/agenda/citas.html" class="btn btn-primary stretched-link">
+                             
+                                Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
                         </div>
@@ -195,8 +202,8 @@ $id_usuario = $_SESSION['id_usuario'] ?? null; // ID de usuario para personaliza
                                 <i class="fas fa-money-bill-wave fa-3x mb-3 text-success"></i>
                                 <h5 class="card-title">Registrar Pagos</h5>
                                 <p class="card-text">Gestión de pagos</p>
-                                <a href="../modulo/recepcion/pagos/pagos.html" class="btn btn-primary stretched-link">
-                               
+                                <a href="../modulo/recepcion/pagos/pago.html" class="btn btn-primary stretched-link">
+                              
                                     Acceder <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>

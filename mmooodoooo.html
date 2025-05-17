@@ -1,5 +1,6 @@
+
 C:\xampp\htdocs\TRABAJO-GRUPAL1\php\database\conexion.php
-LA CONECIÓ A BASE DE DATOS SE MANTINE
+la conexcion se mantine, no se cambia
 <?php
 class Database {
     private $host = "localhost";
@@ -31,369 +32,447 @@ class Database {
     public function closeConnection() {
         $this->conn = null;
     }
+} 
+C:\xampp\htdocs\TRABAJO-GRUPAL1bbbb\modulo\recepcion\pagos\pago.js
+// Configuración inicial de DataTables
+$(document).ready(function() {
+    const tablaPagos = $('#tablaPagos').DataTable({
+        ajax: {
+            url: 'buscar_pago.php',
+            dataSrc: 'data'
+        },
+        columns: [
+            { data: 'id_pago' },
+            { data: 'paciente' },
+            { data: 'tratamiento' },
+            { data: 'monto_formateado' },
+            { data: 'metodo_pago' },
+            { 
+                data: 'estado_visual',
+                render: function(data, type, row) {
+                    let badgeClass = '';
+                    switch(row.estado) {
+                        case 'Completado': badgeClass = 'bg-success'; break;
+                        case 'Pendiente': badgeClass = 'bg-warning text-dark'; break;
+                        case 'Reembolsado': badgeClass = 'bg-info text-dark'; break;
+                        case 'Cancelado': badgeClass = 'bg-danger'; break;
+                        default: badgeClass = 'bg-secondary';
+                    }
+                    return `<span class="badge ${badgeClass}">${data}</span>`;
+                }
+            },
+            { data: 'fecha_pago_formateada' },
+            {
+                data: 'id_pago',
+                render: function(data, type, row) {
+                    return `
+                        <div class="btn-group" role="group">
+                            <a href="editar_pago/pago_editar.html?id=${data}" class="btn btn-sm btn-primary">✏️ Editar</a>
+                            <button onclick="confirmarEliminar(${data})" class="btn btn-sm btn-danger">🗑️ Eliminar</button>
+                        </div>
+                    `;
+                },
+                orderable: false
+            }
+        ],
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
+        }
+    });
+
+    // Cargar citas disponibles en el formulario de registro
+    if (window.location.pathname.includes('pago_registro.html')) {
+        cargarCitasDisponibles();
+        
+        // Configurar formulario de registro
+        $('#formPago').on('submit', function(e) {
+            e.preventDefault();
+            registrarPago();
+        });
+    }
+
+    // Configurar formulario de edición
+    if (window.location.pathname.includes('pago_editar.html')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const idPago = urlParams.get('id');
+        
+        if (idPago) {
+            cargarDatosPago(idPago);
+            
+            $('#formEditarPago').on('submit', function(e) {
+                e.preventDefault();
+                actualizarPago(idPago);
+            });
+        } else {
+            alert('No se proporcionó ID de pago');
+            window.location.href = 'pago.html';
+        }
+    }
+});
+
+// Funciones para el formulario de registro
+function cargarCitasDisponibles() {
+    $.ajax({
+        url: 'crear_pago/obtener_datos.php',
+       
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                const select = $('#id_cita');
+                select.empty();
+                
+                if (response.data && response.data.length > 0) {
+                    select.append('<option value="">Seleccionar cita...</option>');
+                    
+                    response.data.forEach(cita => {
+                        select.append(`<option value="${cita.id_cita}" data-monto="${cita.monto_sugerido || ''}">${cita.info_cita}</option>`);
+                    });
+                    
+                    // Actualizar monto cuando se selecciona una cita
+                    select.on('change', function() {
+                        const monto = $(this).find(':selected').data('monto');
+                        if (monto) {
+                            $('#monto').val(monto);
+                        }
+                    });
+                } else {
+                    select.append('<option value="">No hay citas disponibles para pago</option>');
+                }
+            } else {
+                console.error('Error al cargar citas:', response.message);
+                $('#id_cita').html('<option value="">Error al cargar citas</option>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error AJAX:', error);
+            $('#id_cita').html('<option value="">Error de conexión</option>');
+        }
+    });
 }
 
-// Instancia global de conexión PDO
-$db = (new Database())->getConnection();
+
+function registrarPago() {
+    const formData = {
+        id_cita: $('#id_cita').val(),
+        monto: $('#monto').val(),
+        metodo_pago: $('#metodo_pago').val(),
+        referencia: $('#referencia').val(),
+        notas: $('#notas').val()
+    };
+    
+    if (!formData.id_cita) {
+        alert('Por favor seleccione una cita');
+        return;
+    }
+    
+    $.ajax({
+        url: 'crear_pago/registrar_pago.php',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                alert('Pago registrado correctamente');
+                window.location.href = 'pago.html';
+            } else {
+                alert('Error al registrar pago: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Error al registrar pago: ' + error);
+        }
+    });
+}
+
+// Funciones para el formulario de edición
+function cargarDatosPago(idPago) {
+    $.ajax({
+        url: `editar_pago/obtener_pago.php?id=${idPago}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                const pago = response.data;
+                
+                $('#id_pago').val(pago.id_pago);
+                $('#info_paciente').val(pago.info_paciente);
+                $('#tratamiento').val(pago.tratamiento);
+                $('#monto').val(pago.monto);
+                $('#metodo_pago').val(pago.metodo_pago);
+                $('#estado').val(pago.estado);
+                $('#referencia').val(pago.referencia);
+                $('#fecha_pago').val(pago.fecha_pago_iso);
+                $('#notas').val(pago.notas);
+            } else {
+                alert('Error al cargar pago: ' + response.message);
+                window.location.href = '../pago.html';
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Error al cargar pago: ' + error);
+            window.location.href = 'pago.html';
+        }
+    });
+}
+
+function actualizarPago(idPago) {
+    const formData = {
+        id_pago: idPago,
+        monto: $('#monto').val(),
+        metodo_pago: $('#metodo_pago').val(),
+        estado: $('#estado').val(),
+        referencia: $('#referencia').val(),
+        fecha_pago: $('#fecha_pago').val(),
+        notas: $('#notas').val()
+    };
+    
+    $.ajax({
+        url: 'editar_pago/actualizar_pago.php',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                alert('Pago actualizado correctamente');
+                window.location.href = 'pago.html';
+            } else {
+                alert('Error al actualizar pago: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Error al actualizar pago: ' + error);
+        }
+    });
+}
+
+// Función para eliminar pagos
+function confirmarEliminar(idPago) {
+    if (confirm('¿Está seguro que desea eliminar este pago? Esta acción no se puede deshacer.')) {
+        $.ajax({
+            url: 'eliminar.php',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: idPago }),
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    alert('Pago eliminado correctamente');
+                    $('#tablaPagos').DataTable().ajax.reload();
+                } else {
+                    alert('Error al eliminar pago: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Error al eliminar pago: ' + error);
+            }
+        });
+    }
+}
+
+
+C:\xampp\htdocs\TRABAJO-GRUPAL1bbbb\modulo\recepcion\pagos\eliminar_pago.php
+<?php
+require_once __DIR__ . '/../../php/database/conexion.php';
+
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+    exit;
+}
+
+$data = json_decode(file_get_contents('php://input'), true);
+$id_pago = $data['id'] ?? null;
+
+if (!$id_pago) {
+    echo json_encode(['success' => false, 'message' => 'ID de pago no proporcionado']);
+    exit;
+}
+
+try {
+    // Verificar si el pago existe
+    $stmt = $db->prepare("SELECT estado FROM pagos WHERE id_pago = :id_pago");
+    $stmt->bindParam(':id_pago', $id_pago);
+    $stmt->execute();
+    $pago = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$pago) {
+        echo json_encode(['success' => false, 'message' => 'Pago no encontrado']);
+        exit;
+    }
+    
+    if ($pago['estado'] === 'Reembolsado') {
+        echo json_encode(['success' => false, 'message' => 'No se puede eliminar un pago reembolsado']);
+        exit;
+    }
+    
+    // Eliminar el pago
+    $stmt = $db->prepare("DELETE FROM pagos WHERE id_pago = :id_pago");
+    $stmt->bindParam(':id_pago', $id_pago);
+    $stmt->execute();
+    
+    echo json_encode(['success' => true, 'message' => 'Pago eliminado correctamente']);
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Error al eliminar pago: ' . $e->getMessage()]);
+}
 ?>
 
-
-
-ESTE ES INDEX GENERAL DE SE BOTON QUE SE INGRESA A   historiales_registro       <i class="fas fa-file-medical me-2"></i>Historiales Médicos
-</h2>
-<button onclick="cargarRegistro()" class="btn btn-success hover-shadow">
-    <i class="fas fa-plus-circle me-2"></i>Nuevo Historial
-</button>
-</div>
-
-
-C:\xampp\htdocs\TRABAJO-GRUPAL1\modulo\dentista\historiales\registro_historial\historiales_registro.html(AQUI SE SE INGRESA PARA CREAR NUEVO registro_historial)
-
+C:\xampp\htdocs\TRABAJO-GRUPAL1bbbb\modulo\recepcion\pagos\crear_pago\pago_registro.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Nuevo Historial</title>
+    <title>Registrar Nuevo Pago</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="historiales_registro.js"></script>
+
 </head>
-<body class="bg-light">
+<body>
     <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0"><i class="fas fa-file-medical me-2"></i>Nuevo Historial Médico</h3>
+        <h2 class="mb-4">Registrar Nuevo Pago</h2>
+        
+        <form id="formPago">
+            <div class="mb-3">
+                <label for="id_cita" class="form-label">Cita:</label>
+                <select class="form-select" id="id_cita" name="id_cita" required>
+                    <option value="">Cargando citas...</option>
+                </select>
             </div>
-            <div class="card-body">
-                <form id="formHistorial" onsubmit="guardarHistorial(event)">
-                    <!-- Selección de Paciente -->
-                    <div class="mb-3">
-                        <label class="form-label">Paciente <span class="text-danger">*</span></label>
-                        <select id="id_paciente" class="form-select" required>
-                            <option value="">Cargando pacientes...</option>
-                        </select>
-                    </div>
-
-                    <!-- Fecha y Tratamiento -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Fecha y Hora <span class="text-danger">*</span></label>
-                            <input type="datetime-local" id="fecha_procedimiento" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Tratamiento</label>
-                            <select id="id_tratamiento" class="form-select">
-                                <option value="">Seleccionar tratamiento...</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Campos principales -->
-                    <div class="mb-3">
-                        <label class="form-label">Diagnóstico <span class="text-danger">*</span></label>
-                        <textarea id="diagnostico" class="form-control" rows="3" required></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Procedimiento Realizado</label>
-                        <textarea id="procedimiento" class="form-control" rows="3"></textarea>
-                    </div>
-
-                    <!-- Observaciones y Receta -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Observaciones</label>
-                            <textarea id="observaciones" class="form-control" rows="2"></textarea>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Receta Médica</label>
-                            <textarea id="receta" class="form-control" rows="2"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Próxima Visita -->
-                    <div class="mb-3">
-                        <label class="form-label">Próxima Visita</label>
-                        <input type="date" id="proxima_visita" class="form-control">
-                    </div>
-
-                    <!-- Botones -->
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn btn-secondary" onclick="window.history.back()">
-                            <i class="fas fa-times me-2"></i>Cancelar
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-2"></i>Guardar Historial
-                        </button>
-                    </div>
-                </form>
+            
+            <div class="mb-3">
+                <label for="monto" class="form-label">Monto (S/):</label>
+                <input type="number" step="0.01" class="form-control" id="monto" name="monto" required>
             </div>
-        </div>
+            
+            <div class="mb-3">
+                <label for="metodo_pago" class="form-label">Método de Pago:</label>
+                <select class="form-select" id="metodo_pago" name="metodo_pago" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta crédito">Tarjeta crédito</option>
+                    <option value="Tarjeta débito">Tarjeta débito</option>
+                    <option value="Transferencia">Transferencia</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="referencia" class="form-label">Referencia/N° Operación:</label>
+                <input type="text" class="form-control" id="referencia" name="referencia">
+            </div>
+            
+            <div class="mb-3">
+                <label for="notas" class="form-label">Notas:</label>
+                <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Registrar Pago</button>
+            <a href="../pago.html" class="btn btn-secondary">Cancelar</a>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="historiales_registro.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../pago.js"></script>
 </body>
 </html>
-C:\xampp\htdocs\TRABAJO-GRUPAL1\modulo\recepcion\citas\crear_cita\cita_registro.js
-document.addEventListener('DOMContentLoaded', function() {
-    cargarSelectores();
-    
-    document.getElementById('form-registro-cita').addEventListener('submit', function(e) {
-        e.preventDefault();
-        registrarCita();
-    });
-});
-
-// Cargar selectores
-function cargarSelectores() {
-    // Pacientes
-    fetch('obtener_usuario_cita.php?accion=cargarPacientes')
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('id_paciente');
-            select.innerHTML = '<option value="">Seleccionar paciente...</option>';
-            
-            if(data && data.length > 0) {
-                data.forEach(paciente => {
-                    const option = document.createElement('option');
-                    option.value = paciente.id_paciente;
-                    option.textContent = paciente.nombre_completo;
-                    select.appendChild(option);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('Error', 'No se pudieron cargar los pacientes', 'error');
-        });
-
-    // Tratamientos
-    fetch('obtener_usuario_cita.php?accion=cargarTratamientos')
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('id_tratamiento');
-            select.innerHTML = '<option value="">Seleccionar tratamiento...</option>';
-            
-            if(data && data.length > 0) {
-                data.forEach(tratamiento => {
-                    const option = document.createElement('option');
-                    option.value = tratamiento.id_tratamiento;
-                    option.setAttribute('data-duracion', tratamiento.duracion_estimada);
-                    option.textContent = tratamiento.nombre;
-                    select.appendChild(option);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('Error', 'No se pudieron cargar los tratamientos', 'error');
-        });
-
-    // Dentistas
-    fetch('obtener_usuario_cita.php?accion=cargarDentistas')
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('id_dentista');
-            select.innerHTML = '<option value="">Seleccionar dentista...</option>';
-            
-            if(data && data.length > 0) {
-                data.forEach(dentista => {
-                    const option = document.createElement('option');
-                    option.value = dentista.id_dentista;
-                    option.textContent = dentista.nombre_completo;
-                    select.appendChild(option);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('Error', 'No se pudieron cargar los dentistas', 'error');
-        });
-}
-
-function registrarCita() {
-    const form = document.getElementById('form-registro-cita');
-    const formData = new FormData(form);
-    
-    if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-        return;
-    }
-
-    const data = {
-        id_paciente: formData.get('id_paciente'),
-        id_tratamiento: formData.get('id_tratamiento'),
-        id_dentista: formData.get('id_dentista'),
-        fecha_hora: formData.get('fecha_hora'),
-        duracion: formData.get('duracion'),
-        estado: formData.get('estado'),
-        notas: formData.get('notas'),
-        recordatorio_enviado: formData.get('recordatorio_enviado'),
-        creado_por: 4 // ID del usuario logueado (deberías obtenerlo de la sesión)
-    };
-
-    fetch('registrar_cita.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(async response => {
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.error || 'Error al registrar la cita');
-        
-        Swal.fire({
-            icon: 'success',
-            title: '¡Registro exitoso!',
-            text: 'Cita registrada correctamente',
-            timer: 2000
-        }).then(() => {
-            window.location.href = '../citas.html';
-        });
-    })
-    .catch(error => {
-        Swal.fire('Error', error.message, 'error');
-    });
-}
-
-C:\xampp\htdocs\TRABAJO-GRUPAL1\modulo\recepcion\citas\crear_cita\obtener_usuario_cita.php
+C:\xampp\htdocs\TRABAJO-GRUPAL1bbbb\modulo\recepcion\pagos\crear_pago\registrar_pago.php
 <?php
-require_once __DIR__ . '/../../../../php/database/conexion.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once __DIR__ . '/../../../php/database/conexion.php';
+
 header('Content-Type: application/json');
 
-$db = new Database();
-$conn = $db->getConnection();
-$accion = $_GET['accion'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+    exit;
+}
+
+$data = json_decode(file_get_contents('php://input'), true);
 
 try {
-    switch ($accion) {
-        case 'cargarPacientes':
-            $query = "SELECT p.id_paciente, u.nombre_apellido AS nombre_completo 
-                      FROM pacientes p 
-                      JOIN usuarios u ON p.id_usuario = u.id_usuario 
-                      WHERE u.id_rol = 4 
-                      ORDER BY u.nombre_apellido";
-            break;
-
-        case 'cargarTratamientos':
-            $query = "SELECT id_tratamiento, nombre, duracion_estimada 
-                      FROM tratamientos  
-                      WHERE activo = 1 
-                      ORDER BY nombre";
-            break;
-
-        case 'cargarDentistas':
-            $query = "SELECT d.id_dentista, u.nombre_apellido AS nombre_completo 
-                      FROM dentistas d 
-                      JOIN usuarios u ON d.id_usuario = u.id_usuario 
-                      WHERE u.id_rol = 2 
-                      ORDER BY u.nombre_apellido";
-            break;
-
-        default:
-            throw new Exception('Acción no válida');
-    }
-
-    $stmt = $conn->prepare($query);
+    $stmt = $db->prepare("
+        INSERT INTO pagos (
+            id_cita,
+            monto,
+            metodo_pago,
+            estado,
+            referencia,
+            fecha_pago,
+            notas
+        ) VALUES (
+            :id_cita,
+            :monto,
+            :metodo_pago,
+            'Completado',
+            :referencia,
+            NOW(),
+            :notas
+        )
+    ");
+    
+    $stmt->bindParam(':id_cita', $data['id_cita']);
+    $stmt->bindParam(':monto', $data['monto']);
+    $stmt->bindParam(':metodo_pago', $data['metodo_pago']);
+    $stmt->bindParam(':referencia', $data['referencia']);
+    $stmt->bindParam(':notas', $data['notas']);
+    
     $stmt->execute();
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    if (empty($resultados)) {
-        throw new Exception("No se encontraron registros");
-    }
-
-    echo json_encode($resultados);
     
+    echo json_encode(['success' => true, 'message' => 'Pago registrado correctamente']);
 } catch (PDOException $e) {
-    echo json_encode([
-        'error' => 'Error de base de datos: ' . $e->getMessage()
-    ]);
-} catch (Exception $e) {
-    echo json_encode([
-        'error' => $e->getMessage()
-    ]);
+    error_log("Error al registrar pago: " . $e->getMessage());
+    echo json_encode(['success' => false, 'message' => 'Error al registrar el pago: ' . $e->getMessage()]);
 }
 ?>
-C:\xampp\htdocs\TRABAJO-GRUPAL1\modulo\recepcion\citas\crear_cita\registrar_cita.php
-<?php
-ob_start();
-require_once __DIR__ . '/../../../../php/database/conexion.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
+C:\xampp\htdocs\TRABAJO-GRUPAL1bbbb\modulo\recepcion\pagos\crear_pago\pago_registro.html
 
-header('Content-Type: application/json');
-
-try {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception("Método no permitido", 405);
-    }
-
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
-
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        throw new Exception("JSON inválido: " . json_last_error_msg(), 400);
-    }
-    
-// Validación completa
-$required = ['id_paciente', 'id_tratamiento', 'fecha_hora'];
-foreach ($required as $field) {
-    if (!isset($data[$field])) { // Corregido: se cerró correctamente el paréntesis
-        throw new Exception("Campo requerido: $field", 400);
-    }
-}
-
-    $db = new Database();
-    $conn = $db->getConnection();
-
-    $query = "INSERT INTO citas (
-                id_paciente, id_tratamiento, id_dentista, 
-                fecha_hora, duracion, estado, 
-                notas, recordatorio_enviado, creado_por
-              ) VALUES (
-                :id_paciente, :id_tratamiento, :id_dentista, 
-                :fecha_hora, :duracion, :estado, 
-                :notas, :recordatorio, :creado_por
-              )";
-
-    $stmt = $conn->prepare($query);
-    
-    $stmt->execute([
-        ':id_paciente' => $data['id_paciente'],
-        ':id_tratamiento' => $data['id_tratamiento'],
-        ':id_dentista' => $data['id_dentista'] ?? null,
-        ':fecha_hora' => date('Y-m-d H:i:s', strtotime($data['fecha_hora'])),
-        ':duracion' => $data['duracion'] ?? 30,
-        ':estado' => $data['estado'] ?? 'Pendiente',
-        ':notas' => $data['notas'] ?? null,
-        ':recordatorio' => $data['recordatorio_enviado'] ?? 0,
-        ':creado_por' => $data['creado_por'] ?? 1
-    ]);
-
-    echo json_encode([
-        'success' => true,
-        'id' => $conn->lastInsertId(),
-        'message' => 'Cita creada exitosamente'
-    ]);
-
-} catch (PDOException $e) {
-    error_log("PDO Error: " . $e->getMessage());
-    echo json_encode([
-        'success' => false,
-        'error' => 'Error de base de datos: ' . $e->getMessage()
-    ]);
-} catch (Exception $e) {
-    error_log("General Error: " . $e->getMessage());
-    http_response_code($e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500);
-    echo json_encode([
-        'success' => false,
-        'error' => $e->getMessage()
-    ]);
-} finally {
-    ob_end_flush();
-}
-?>
+ aqui no me carga el cargando citas, DETECTAME EL ERROR 
+ <form id="formPago">
+            <div class="mb-3">
+                <label for="id_cita" class="form-label">Cita:</label>
+                <select class="form-select" id="id_cita" name="id_cita" required>
+                    <option value="">Cargando citas...</option>
+                </select>
+            </div>
+ aqui en obtener_datos.php 
+ muestra  info_cita, su nombre_apellido- , el monto
+ por ese motivo creo no carga en , cargando cita ahi queremos solo el nombre_apellido, que cargue
+Juan Martínez Flores - Extracción dental simple (0...
+80.00
+18
+Figueroaf - Consulta inicial (11/05/2025 15:03)
+300.00
+             SELECT 
+            c.id_cita,
+            CONCAT(u.nombre_apellido, ' - ', COALESCE(t.nombre, 'Consulta general'), ' (', DATE_FORMAT(c.fecha_hora, '%d/%m/%Y %H:%i'), ')') AS info_cita,
+            COALESCE(t.costo, 0) AS monto_sugerido
+        FROM 
+            citas c
+        JOIN pacientes pa ON c.id_paciente = pa.id_paciente
+        JOIN usuarios u ON pa.id_usuario = u.id_usuario
+        LEFT JOIN tratamientos t ON c.id_tratamiento = t.id_tratamiento
+        WHERE 
+            c.estado = 'Completada' 
+            AND NOT EXISTS (SELECT 1 FROM pagos p WHERE p.id_cita = c.id_cita)
+            
+CANDO EJECUTE EN SQL ME MOSTRO BINE QUE FUNCIONA PERO NO CARGA O SOLO PUEDE CARGA 
+ Mostrando filas 0 - 1 (total de 2, La consulta tardó 0,0016 segundos.)
+SELECT c.id_cita, CONCAT(u.nombre_apellido, ' - ', COALESCE(t.nombre, 'Consulta general'), ' (', DATE_FORMAT(c.fecha_hora, '%d/%m/%Y %H:%i'), ')') AS info_cita, COALESCE(t.costo, 0) AS monto_sugerido FROM citas c JOIN pacientes pa ON c.id_paciente = pa.id_paciente JOIN usuarios u ON pa.id_usuario = u.id_usuario LEFT JOIN tratamientos t ON c.id_tratamiento = t.id_tratamiento WHERE c.estado = 'Completada' AND NOT EXISTS (SELECT 1 FROM pagos p WHERE p.id_cita = c.id_cita);
+ Perfilando [ Editar en línea ] [ Editar ] [ Explicar SQL ] [ Crear código PHP ] [ Actualizar ]
+ Mostrar todo	|			Número de filas: 
+25
+Filtrar filas: 
+Buscar en esta tabla
+Ordenar según la clave: 
+Ninguna
+id_cita
+info_cita
+monto_sugerido
+9
+Juan MartíUnez Flores - Extracción dental simple (0...
+80.00
+18
+Figueroaf - Consulta inicial (11/05/2025 15:03)
+300.00

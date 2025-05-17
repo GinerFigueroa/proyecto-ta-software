@@ -1,7 +1,12 @@
 <?php
+
 require_once __DIR__ . '/../../../../php/database/conexion.php';
 header('Content-Type: application/json');
 
+
+error_reporting(0); // Desactiva errores PHP no controlados
+
+// Tu código...
 $tipo = $_GET['tipo'] ?? '';
 
 try {
@@ -9,9 +14,12 @@ try {
     $conn = $db->getConnection();
 
     switch ($tipo) {
-        case 'pacientes':
-            $query = "SELECT id_usuario, nombre_apellido FROM usuarios WHERE id_rol = 4;";
-            break;
+       case 'pacientes':
+    $query = "SELECT p.id_paciente, u.nombre_apellido 
+              FROM pacientes p
+              JOIN usuarios u ON p.id_usuario = u.id_usuario
+              WHERE u.id_rol = 4";
+    break;
             
         case 'tratamientos':
             $query = "SELECT id_tratamiento, nombre 

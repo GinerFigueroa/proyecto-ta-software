@@ -1,9 +1,4 @@
 
-<?php
-require_once 'php/database/conexion.php';
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,7 +13,8 @@ require_once 'php/database/conexion.php';
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Estilos personalizados -->
+   
+   
     <style>
         :root {
             --primary-color: #2a6496;
@@ -89,6 +85,36 @@ require_once 'php/database/conexion.php';
             background-color: #343a40;
             color: white;
         }
+
+        .navbar-nav .nav-link {
+    font-size: 20px; /* Aumenta el tamaño de los enlaces */
+    font-weight: bold;
+    padding: 15px 20px;
+}
+.navbar {
+    background-color: #007bff; /* Azul brillante */
+}
+.navbar-nav .nav-link {
+    color: #fff;
+}
+.navbar-nav .nav-link:hover {
+    color: #FFD700; /* Dorado */
+}
+
+.btn-outline-light {
+    font-size: 18px;
+    padding: 12px 20px;
+    border: 2px solid #FFD700;
+    color: #FFD700;
+}
+.btn-outline-light:hover {
+    background-color: #FFD700;
+    color: #000;
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -111,7 +137,7 @@ require_once 'php/database/conexion.php';
                     <li class="nav-item"><a class="nav-link" href="#testimonios">Testimonios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
-                <a href="bienvenido/login.php" class="btn btn-outline-light ms-lg-3">Iniciar Sesión</a>
+                <a href="bienvenido/login.php" class="btn btn-outline-light ms-lg-3">Logueando</a>
             </div>
         </div>
     </nav>
@@ -125,7 +151,7 @@ require_once 'php/database/conexion.php';
                     <p class="lead mb-4">Especialistas en odontología para toda la familia con tecnología de última generación</p>
                     <div class="d-flex gap-3">
                         <a href="#contacto" class="btn btn-light btn-lg">Agendar Cita</a>
-                        <a href="tel:+123456789" class="btn btn-outline-light btn-lg">
+                        <a href="tel:+ 972 205 471 " class="btn btn-outline-light btn-lg">
                             <i class="fas fa-phone me-2"></i> Llámanos
                         </a>
                     </div>
@@ -263,7 +289,7 @@ require_once 'php/database/conexion.php';
                     <div class="card service-card h-100 border-0 shadow-sm">
                         <div class="card-body text-center p-4">
                             <div class="service-icon mb-4 mx-auto">
-                                <img src="assets/img/Odontopediatría.jpg" alt="Periodoncia" class="img-fluid">
+                                <img src="assets/img/blanqueamientoDental.jpg" alt="Periodoncia" class="img-fluid">
                             </div>
                             <h3 class="h5">Periodoncia</h3>
                             <p class="text-muted">Raspado y alisado radicular en un cuadrante de la boca.</p>
@@ -276,8 +302,9 @@ require_once 'php/database/conexion.php';
             </div>
             
             <div class="text-center mt-5">
-                <a href="admin/servicios.html" class="btn btn-outline-primary me-2">Ver todos los servicios</a>
-                <a href="sistema-citas/admin/citas.php" class="btn btn-primary">Sacar citas</a>
+                
+                <a href="ver_servisios/servisios_vistas.html" class="btn btn-outline-primary me-2">Ver todos los servicios</a>
+               
             </div>
         </div>
     </section>
@@ -330,7 +357,7 @@ require_once 'php/database/conexion.php';
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow-sm h-100">
                         <div class="card-body text-center p-4">
-                            <img src="assets/img/team/dra-martinez.webp" alt="Dra. Carolay" class="img-fluid mb-4">
+                            <img src="assets/img/doctoraCarolay.png" alt="Dra. Carolay" class="img-fluid mb-4">
                             <h3 class="h4">Dra. Carolay</h3>
                             <p class="text-primary mb-2">Ortodoncista</p>
                             <p class="text-muted">Especializada en ortodoncia invisible y tratamientos para adultos.</p>
@@ -341,7 +368,7 @@ require_once 'php/database/conexion.php';
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow-sm h-100">
                         <div class="card-body text-center p-4">
-                            <img src="assets/img/team/dr-gonzalez.webp" alt="Dr. Diego Quispe" class="img-fluid mb-4">
+                            <img src="assets/img/digoquispe.png" alt="Dr. Diego Quispe" class="img-fluid mb-4">
                             <h3 class="h4">Dr. Diego Quispe</h3>
                             <p class="text-primary mb-2">Ortodoncia</p>
                             <p class="text-muted">Experto en rehabilitación oral.</p>
@@ -352,8 +379,8 @@ require_once 'php/database/conexion.php';
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow-sm h-100">
                         <div class="card-body text-center p-4">
-                            <img src="assets/img/team/dra-perez.webp" alt="Dra. Laura Pérez" class="img-fluid mb-4">
-                            <h3 class="h4">Dra. Laura Pérez</h3>
+                            <img src="assets/img/delinaros.png" alt="Dra. Laura Pérez" class="img-fluid mb-4">
+                            <h3 class="h4">Dra. Delina Roshi</h3>
                             <p class="text-primary mb-2">Odontopediatra</p>
                             <p class="text-muted">Especialista en cuidado dental infantil con enfoque lúdico.</p>
                         </div>
@@ -363,61 +390,87 @@ require_once 'php/database/conexion.php';
         </div>
     </section>
 
+    <!-- En tu index.html -->
+<section id="testimonios" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Testimonios de Nuestros Pacientes</h2>
+        
+        <!-- Contenedor de testimonios -->
+        <div id="testimonios-container" class="row">
+            <!-- Los testimonios se cargarán aquí dinámicamente -->
+        </div>
+        
+        <!-- Formulario para usuarios logueados -->
+     
+
+                         
+      <!-- Testimonios -->
     <!-- Testimonios -->
-    <section id="testimonios" class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Lo que dicen nuestros pacientes</h2>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="testimonial-card h-100">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="rating text-warning">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
+<section id="testimonios" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Lo que dicen nuestros pacientes</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="testimonial-card h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rating text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
                         </div>
-                        <p class="mb-4">"El tratamiento de ortodoncia superó mis expectativas. El equipo es muy profesional y el ambiente es muy agradable."</p>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/img/imagenesClinica/imapaciente.png" alt="Ana S." width="60" height="60" class="rounded-circle me-3">
-                            <div>
-                                <h5 class="mb-0">Ana S.</h5>
-                                <small class="text-muted">Paciente de Ortodoncia</small>
-                            </div>
+                    </div>
+                    <p class="mb-4">"El tratamiento de ortodoncia superó mis expectativas. El equipo es muy profesional y el ambiente es muy agradable."</p>
+                    <div class="d-flex align-items-center">
+                      <img src="assets/img/imagenesClinica/imapaciente.png" alt="Ana S." width="200" height="200" class="img-fluid rounded-circle me-3">
+                        
+                      <div>
+                            <h5 class="mb-0">Ana S.</h5>
+                            <small class="text-muted">Paciente de Ortodoncia</small>
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-md-6">
-                    <div class="testimonial-card h-100">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="rating text-warning">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="testimonial-card h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rating text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
                         </div>
-                        <p class="mb-4">"Mi hijo ya no le tiene miedo al dentista gracias a la Dra. Pérez. Las instalaciones son perfectas para niños."</p>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/img/imagenesClinica/pacienteCarlos.png" alt="Carlos M." width="60" height="60" class="rounded-circle me-3">
-                            <div>
-                                <h5 class="mb-0">Carlos M.</h5>
-                                <small class="text-muted">Padre de paciente</small>
-                            </div>
+                    </div>
+                    <p class="mb-4">"Mi hijo ya no le tiene miedo al dentista gracias a la Dra. Diego. Las instalaciones son perfectas para niños."</p>
+                    <div class="d-flex align-items-center">
+                        <img src="assets/img/imagenesClinica/pacienteCarlos.png" alt="Carlos M." width="200" height="200" class="img-fluid rounded-circle me-3">
+                        <div>
+                            <h5 class="mb-0">Carlos M.</h5>
+                            <small class="text-muted">Padre de paciente</small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-  
+    </div>
+</section>
+       
+        
+
+
+
+
+      
+
+         
+            
+          
 
     <section id="contacto" class="py-5 contact-section">
         <div class="container">
@@ -458,10 +511,10 @@ require_once 'php/database/conexion.php';
                         <div class="mb-3">
                             <select class="form-select" id="doctor" name="doctor" required>
                                 <option value="">Selecciona un doctor</option>
-                                <option value="Dr. Juan Pérez">Dr. Juan Pérez</option>
-                                <option value="Dra. María López">Dra. María López</option>
-                                <option value="Dr. Carlos Sánchez">Dr. Carlos Sánchez</option>
-                                <option value="Dra. Ana Torres">Dra. Ana Torres</option>
+                                <option value="Dr. Carolay">Dr. Carolay</option>
+                                <option value="Dra. Diego Quispe">Dr. Diego Quispe</option>
+                                <option value="Dr. Delina Roshi">Dr. Roshi</option>
+                               
                             </select>
                             <div class="invalid-feedback">Por favor selecciona un doctor.</div>
                         </div>
@@ -474,61 +527,63 @@ require_once 'php/database/conexion.php';
                        
                 </div>
                 
-                <div class="col-lg-6">
-                    <h3 class="h4 mb-4">Información de contacto</h3>
-                    
-                    <div class="d-flex mb-4">
-                        <div class="me-3 text-primary">
-                            <i class="fas fa-map-marker-alt fa-2x"></i>
-                        </div>
-                        <div>
-                            <h4 class="h5">Dirección</h4>
-                            <p class="mb-0">Calle Dental 123, Ciudad</p>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex mb-4">
-                        <div class="me-3 text-primary">
-                            <i class="fas fa-phone fa-2x"></i>
-                        </div>
-                        <div>
-                            <h4 class="h5">Teléfono</h4>
-                            <p class="mb-0"><a href="tel:+123456789" class="text-decoration-none">+1 234 567 89</a></p>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex mb-4">
-                        <div class="me-3 text-primary">
-                            <i class="fas fa-envelope fa-2x"></i>
-                        </div>
-                        <div>
-                            <h4 class="h5">Email</h4>
-                            <p class="mb-0"><a href="mailto:info@zazdent.com" class="text-decoration-none">info@zazdent.com</a></p>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex mb-4">
-                        <div class="me-3 text-primary">
-                            <i class="fas fa-clock fa-2x"></i>
-                        </div>
-                        <div>
-                            <h4 class="h5">Horario</h4>
-                            <p class="mb-0">Lunes a Viernes: 9:00 - 19:00</p>
-                            <p class="mb-0">Sábados: 9:00 - 14:00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <h4 class="h5 mb-3">Síguenos</h4>
-                        <div class="d-flex gap-3">
-                            <a href="#" class="text-primary" aria-label="Facebook"><i class="fab fa-facebook-f fa-2x"></i></a>
-                            <a href="#" class="text-primary" aria-label="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
-                            <a href="#" class="text-primary" aria-label="WhatsApp"><i class="fab fa-whatsapp fa-2x"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
+
+<div class="col-lg-6">
+    <h3 class="h4 mb-4">Información de contacto</h3>
+    
+    <div class="d-flex mb-4">
+        <div class="me-3 text-primary">
+            <i class="fas fa-map-marker-alt fa-2x"></i>
         </div>
+        <div>
+            <h4 class="h5">Dirección</h4>
+            <p class="mb-0"><a href="https://maps.app.goo.gl/3gaRyeZ3TM8jopUG8" class="text-decoration-none" target="_blank">Ver ubicación en Google Maps</a></p>
+        </div>
+    </div>
+    
+    
+    <div class="d-flex mb-4">
+        <div class="me-3 text-primary">
+            <i class="fas fa-phone fa-2x"></i>
+        </div>
+        <div>
+            <h4 class="h5">Teléfono/WhatsApp</h4>
+            <p class="mb-0"><a href="https://api.whatsapp.com/send?phone=51972205471&text=Hola%2C%20quiero%20mas%20informaci%C3%B3n%20" class="text-decoration-none">+51 916 901 370</a></p>
+        </div>
+    </div>
+    
+    <div class="d-flex mb-4">
+        <div class="me-3 text-primary">
+            <i class="fas fa-envelope fa-2x"></i>
+        </div>
+        <div>
+            <h4 class="h5">Email</h4>
+            <p class="mb-0"><a href="mailto:zazdent4@gmail.com" class="text-decoration-none">zazdent4@gmail.com</a></p>
+        </div>
+    </div>
+    
+    <div class="d-flex mb-4">
+        <div class="me-3 text-primary">
+            <i class="fas fa-clock fa-2x"></i>
+        </div>
+        <div>
+            <h4 class="h5">Horario</h4>
+            <p class="mb-0">Lunes a Viernes: 9:00 - 19:00</p>
+            <p class="mb-0">Sábados: 9:00 - 14:00</p>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <h4 class="h5 mb-3">Síguenos</h4>
+        <div class="d-flex gap-3">
+            <a href="https://www.facebook.com/profile.php?id=100092266449949&rdid=gBp0oEcRUFvHtREG&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17xVtoCCFA%2F#" class="text-primary" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f fa-2x"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=51972205471&text=Hola%2C%20quiero%20mas%20informaci%C3%B3n%20 class="text-primary" aria-label="WhatsApp"><i class="fab fa-whatsapp fa-2x"></i></a>
+        </div>
+    </div>
+</div>
+
+
     </section>
 
     <!-- Footer -->
@@ -536,7 +591,7 @@ require_once 'php/database/conexion.php';
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-3">
-                    <img src="assets/img/logo-zazdent-white.svg" alt="ZAZDENT" width="160" class="mb-3">
+                    <img src="assets/img/imagenesClinica/logoClinica.png" alt="ZAZDENT" width="160" class="mb-3">
                     <p>Clínica dental especializada en tratamientos de alta calidad con tecnología de punta y enfoque humano.</p>
                 </div>
                 
@@ -562,14 +617,24 @@ require_once 'php/database/conexion.php';
                     </ul>
                 </div>
                 
-                <div class="col-lg-3">
-                    <h5 class="text-white mb-3">Contacto</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><i class="fas fa-map-marker-alt me-2"></i> Calle Dental 123, Ciudad</li>
-                        <li class="nav-item mb-2"><i class="fas fa-phone me-2"></i> +1 234 567 89</li>
-                        <li class="nav-item mb-2"><i class="fas fa-envelope me-2"></i> info@zazdent.com</li>
-                    </ul>
-                </div>
+               <div class="col-lg-3">
+    <h5 class="text-white mb-3">Contacto</h5>
+    <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+            <i class="fas fa-map-marker-alt me-2"></i> 
+            <a href="https://maps.app.goo.gl/3gaRyeZ3TM8jopUG8" class="text-white text-decoration-none" target="_blank">Ver ubicación</a>
+        </li>
+        <li class="nav-item mb-2">
+            <i class="fas fa-phone me-2"></i> 
+            <a href="https://api.whatsapp.com/send?phone=%2B5197205471" class="text-white text-decoration-none" target="_blank">+51 972 205 471</a>
+        </li>
+        <li class="nav-item mb-2">
+            <i class="fas fa-envelope me-2"></i> 
+            <a href="mailto:zazdent4@gmail.com" class="text-white text-decoration-none">zazdent4@gmail.com</a>
+        </li>
+    </ul>
+</div>
+
             </div>
             
             <div class="border-top mt-4 pt-4">
@@ -586,66 +651,4 @@ require_once 'php/database/conexion.php';
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Script para actualizar precios -->
-    <script>
-        // Datos de precios desde PHP
-        const precios = <?php echo json_encode($precios_js); ?>;
-        
-        // Función para actualizar precios
-        function actualizarPrecios() {
-            document.querySelectorAll('.price-tag').forEach(element => {
-                const id = element.getAttribute('data-id');
-                if(precios[id]) {
-                    element.querySelector('.price-value').textContent = precios[id];
-                }
-            });
-        }
-        
-        // Actualizar al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            actualizarPrecios();
-            
-            // Animación de contadores
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200;
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-count');
-                const count = +counter.innerText;
-                const increment = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(updateCount, 1);
-                } else {
-                    counter.innerText = target;
-                }
-                
-                function updateCount() {
-                    const current = +counter.innerText;
-                    if(current < target) {
-                        counter.innerText = Math.ceil(current + increment);
-                        setTimeout(updateCount, 1);
-                    } else {
-                        counter.innerText = target;
-                    }
-                }
-            });
-            
-            // Validación de formulario
-            const form = document.getElementById('form-cita');
-            form.addEventListener('submit', function(event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                
-                form.classList.add('was-validated');
-            }, false);
-        });
-    </script>
-</body>
-</html>

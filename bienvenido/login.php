@@ -182,7 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="remember">
                             <label class="form-check-label" for="remember">Recordarme</label>
-                            <a href="#" class="float-end text-decoration-none">¿Olvidaste tu contraseña?</a>
+                            <a href="../modulo/admin/restablecer_contraseñas/restablecer.php" class="float-end text-decoration-none">¿Olvidaste tu contraseña?</a>
+                          
                         </div>
                         <button type="submit" class="btn btn-primary btn-login mb-3">
                             <i class="fas fa-sign-in-alt me-2"></i> Iniciar sesión

@@ -42,28 +42,39 @@ async function cargarHistorial(id) {
     }
 }
 
-async function cargarTratamientos() {
+// Corregir la función cargarHistorial
+async function cargarHistorial(id) {
     try {
-        const response = await fetch('../registro_historial/obtener_historial.php?tipo=tratamientos');
-        if (!response.ok) throw new Error('Error al cargar tratamientos');
+        const response = await fetch(`actualizar_historial.php?id=${id}`);
+        if (!response.ok) throw new Error('Error al cargar historial');
         
-        const tratamientos = await response.json();
-        const select = document.getElementById('id_tratamiento');
+        const historial = await response.json();
         
-        select.innerHTML = tratamientos.map(t => 
-            `<option value="${t.id_tratamiento}">${t.nombre}</option>`
-        ).join('');
-        
-        // Establecer tratamiento actual después de cargar
-        const urlParams = new URLSearchParams(window.location.search);
-        const idHistorial = urlParams.get('id');
-        const responseHistorial = await fetch(`actualizar_historial.php?id=${idHistorial}`);
-        const historial = await responseHistorial.json();
-        if (historial.id_tratamiento) {
-            select.value = historial.id_tratamiento;
+        if (historial.error) {
+            mostrarError(historial.error);
+            return;
         }
+
+        // Formatear fecha para el input datetime-local
+        const fecha = new Date(historial.fecha_procedimiento);
+        const fechaFormateada = fecha.toISOString().slice(0, 16);
+
+        // Llenar campos del formulario
+        document.getElementById('id_historial').value = historial.id_historial;
+        document.getElementById('paciente').value = historial.paciente;
+        document.getElementById('fecha_procedimiento').value = fechaFormateada;
+        document.getElementById('diagnostico').value = historial.diagnostico || '';
+        document.getElementById('procedimiento').value = historial.procedimiento || '';
+        document.getElementById('observaciones').value = historial.observaciones || '';
+        document.getElementById('receta').value = historial.receta || '';
+        document.getElementById('proxima_visita').value = historial.proxima_visita || '';
+        
+        // Mostrar formulario
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('formEditarHistorial').style.display = 'block';
+        
     } catch (error) {
-        console.error('Error:', error);
+        mostrarError(error.message);
     }
 }
 
@@ -130,7 +141,7 @@ function mostrarMensaje(tipo, mensaje, redireccionar = false) {
     
     if (redireccionar) {
         setTimeout(() => {
-            window.location.href = '../../historiales.html';
+            window.location.href = '../historiales.html';
         }, 1500);
     }
 }

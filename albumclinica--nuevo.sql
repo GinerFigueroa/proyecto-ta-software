@@ -227,7 +227,6 @@ CREATE TABLE `logs` (
 --
 -- Estructura de tabla para la tabla `pacientes`
 --
-
 CREATE TABLE `pacientes` (
   `id_paciente` int(11) NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
@@ -257,6 +256,7 @@ INSERT INTO `pacientes` (`id_paciente`, `id_usuario`, `fecha_nacimiento`, `gener
 --
 -- Estructura de tabla para la tabla `pagos`
 --
+
 
 CREATE TABLE `pagos` (
   `id_pago` int(11) NOT NULL,
@@ -321,9 +321,7 @@ CREATE TABLE `tratamientos` (
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `tratamientos`
---
+
 
 INSERT INTO `tratamientos` (`id_tratamiento`, `nombre`, `id_especialidad`, `descripcion`, `duracion_estimada`, `costo`, `requisitos`, `activo`, `creado_en`) VALUES
 (1, 'Consulta inicial', NULL, 'Evaluación clínica completa con diagnóstico y plan de tratamiento', 30, 300.00, 'Mayor de 18 años o acompañado de tutor', 1, '2025-04-14 00:33:15'),

@@ -175,3 +175,23 @@ document.addEventListener('DOMContentLoaded', function() {
         detalleCitaModal.show();
     }
 });
+// ... (código JavaScript anterior)
+
+async function cargarCitas() {
+    try {
+        const response = await fetch('MostrarCitas.php');
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error al obtener citas: ${errorData.message}`);
+        }
+        const data = await response.json();
+        if (!data.success) {
+            throw new Error(`Error al obtener citas: ${data.message}`);
+        }
+        mostrarCitas(data.data);
+    } catch (error) {
+        console.error('Error al cargar citas:', error);
+        // Mostrar mensaje de error al usuario
+        alert('Error al cargar las citas. Por favor, inténtalo de nuevo.');
+    }
+}
